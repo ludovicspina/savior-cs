@@ -1,7 +1,8 @@
 using System;
 using System.Windows.Forms;
+using MaintenanceToolGUI.UI;
 
-namespace MaintenanceToolGUI
+namespace Savior
 {
     static class Program
     {
@@ -9,7 +10,7 @@ namespace MaintenanceToolGUI
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }
