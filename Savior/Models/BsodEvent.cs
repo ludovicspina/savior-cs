@@ -1,4 +1,4 @@
-﻿namespace MaintenanceToolGUI.Models
+﻿namespace Savior.Models
 {
     public class BsodEvent
     {

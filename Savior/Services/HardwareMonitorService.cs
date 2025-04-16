@@ -1,7 +1,7 @@
 ﻿using LibreHardwareMonitor.Hardware;
 using System.Collections.Generic;
 
-namespace MaintenanceToolGUI.Services
+namespace Savior.Services
 {
     public class HardwareMonitorService
     {

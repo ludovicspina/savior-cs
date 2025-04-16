@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
-using MaintenanceToolGUI.Models;
+using Savior.Models;
 
-namespace MaintenanceToolGUI.Services
+namespace Savior.Services
 {
     public class BsodEventService
     {

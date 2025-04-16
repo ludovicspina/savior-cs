@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management;
 
-namespace MaintenanceToolGUI.Services
+namespace Savior.Services
 {
     public class SystemInfoService
     {
