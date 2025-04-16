@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Management;
 using System.Security.Cryptography.X509Certificates;
-using Process = Savior.Models.Process;
+using Process = Savior.Models.ProcessInfo;
 
 namespace Savior.Services
 {
@@ -40,7 +40,7 @@ namespace Savior.Services
                     if (memoryMb > 500)
                         isSuspicious = true;
 
-                    result.Add(new Process
+                    result.Add(new ProcessInfo
                     {
                         Pid = process.Id,
                         Name = name,

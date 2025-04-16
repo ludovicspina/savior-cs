@@ -18,7 +18,19 @@ namespace Savior.UI
         {
             InitializeComponent();
 
-            // Ajouter cette ligne ici pour être sûr qu'on ne déclenche rien au design
+            // Configuration du ListView BSOD
+            listViewBSOD.Columns.Add("Date", 150);
+            listViewBSOD.Columns.Add("Source", 100);
+            listViewBSOD.Columns.Add("ID", 70);
+            listViewBSOD.Columns.Add("Message", 400);
+
+            // Configuration du ListView Virus
+            listViewVirus.Columns.Add("Nom", 150);
+            listViewVirus.Columns.Add("PID", 70);
+            listViewVirus.Columns.Add("Mémoire (MB)", 100);
+            listViewVirus.Columns.Add("Signé", 70);
+            listViewVirus.Columns.Add("Chemin", 400);
+
             if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
                 this.Load += MainForm_Load;
         }
@@ -76,19 +88,6 @@ namespace Savior.UI
 
         private void BtnGeneral_Click(object sender, EventArgs e)
         {
-            if (panelGeneral.Parent != null)
-            {
-                panelGeneral.Visible = true;
-            }
-            if (panelBSOD.Parent != null)
-            {
-                panelBSOD.Visible = false;
-            }
-            if (panelVirus.Parent != null)
-            {
-                panelVirus.Visible = false;
-            }
-
             panelGeneral.Visible = true;
             panelBSOD.Visible = false;
             panelVirus.Visible = false;
@@ -96,19 +95,6 @@ namespace Savior.UI
 
         private void BtnBSOD_Click(object sender, EventArgs e)
         {
-            if (panelGeneral.Parent != null)
-            {
-                panelGeneral.Visible = true;
-            }
-            if (panelBSOD.Parent != null)
-            {
-                panelBSOD.Visible = false;
-            }
-            if (panelVirus.Parent != null)
-            {
-                panelVirus.Visible = false;
-            }
-
             panelGeneral.Visible = false;
             panelBSOD.Visible = true;
             panelVirus.Visible = false;
@@ -126,23 +112,16 @@ namespace Savior.UI
                     ev.ShortMessage
                 }));
             }
+
+            if (events.Count == 0)
+            {
+                var item = new ListViewItem(new[] { "", "", "", "Aucun événement BSOD trouvé" });
+                listViewBSOD.Items.Add(item);
+            }
         }
 
         private void BtnVirus_Click(object sender, EventArgs e)
         {
-            if (panelGeneral.Parent != null)
-            {
-                panelGeneral.Visible = true;
-            }
-            if (panelBSOD.Parent != null)
-            {
-                panelBSOD.Visible = false;
-            }
-            if (panelVirus.Parent != null)
-            {
-                panelVirus.Visible = false;
-            }
-
             panelGeneral.Visible = false;
             panelBSOD.Visible = false;
             panelVirus.Visible = true;
@@ -152,16 +131,13 @@ namespace Savior.UI
 
             foreach (var proc in processes)
             {
-                if (proc.IsSuspicious)
-                {
-                    var item = new ListViewItem(proc.Name);
-                    item.SubItems.Add(proc.Pid.ToString());
-                    item.SubItems.Add(proc.MemoryMB.ToString());
-                    item.SubItems.Add(proc.IsSigned ? "Oui" : "Non");
-                    item.SubItems.Add(proc.Path);
-                    item.Tag = proc;
-                    listViewVirus.Items.Add(item);
-                }
+                var item = new ListViewItem(proc.Name);
+                item.SubItems.Add(proc.Pid.ToString());
+                item.SubItems.Add(proc.MemoryMB.ToString());
+                item.SubItems.Add(proc.IsSigned ? "Oui" : "Non");
+                item.SubItems.Add(proc.Path);
+                item.Tag = proc;
+                listViewVirus.Items.Add(item);
             }
         }
 
@@ -170,7 +146,7 @@ namespace Savior.UI
             if (listViewVirus.SelectedItems.Count > 0)
             {
                 var selected = listViewVirus.SelectedItems[0];
-                if (selected.Tag is Process proc)
+                if (selected.Tag is ProcessInfo proc)
                 {
                     _processScanner.KillProcess(proc.Pid);
                     MessageBox.Show($"Processus {proc.Name} (PID: {proc.Pid}) terminé.");

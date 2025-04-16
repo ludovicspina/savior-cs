@@ -1,6 +1,6 @@
 ﻿namespace Savior.Models
 {
-    public class Process
+    public class ProcessInfo
     {
         public int Pid { get; set; }
         public string Name { get; set; }
