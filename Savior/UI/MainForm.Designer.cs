@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace MaintenanceToolGUI.UI
+namespace Savior.UI
 {
     partial class MainForm
     {

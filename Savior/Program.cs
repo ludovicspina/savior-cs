@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Forms;
-using MaintenanceToolGUI.UI;
+using Savior.UI;
 
 namespace Savior
 {

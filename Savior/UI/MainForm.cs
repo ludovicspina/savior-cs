@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using MaintenanceToolGUI.Services;
+using System.Linq;
 
 namespace Savior.UI
 {
@@ -21,7 +22,7 @@ namespace Savior.UI
             LoadSystemInfo();
             RefreshTemperatures();
 
-            var timer = new Timer
+            var timer = new System.Windows.Forms.Timer
             {
                 Interval = 5000
             };
