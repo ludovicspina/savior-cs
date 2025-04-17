@@ -1,20 +1,13 @@
-﻿using System.Windows.Forms;
-
-namespace Savior.UI
+﻿namespace Savior.UI
 {
     partial class MainForm
     {
         private System.ComponentModel.IContainer components = null;
-
-        private Button btnGeneral;
-        private Button btnBSOD;
+        private System.Windows.Forms.Panel sidebar;
+        private System.Windows.Forms.Button btnGeneral;
+        private System.Windows.Forms.Button btnBSOD;
         private System.Windows.Forms.Button btnVirus;
-
-        private Panel contentContainer;
         private Panel panelGeneral;
-        private Panel panelBSOD;
-        private Panel panelVirus;
-
         private Label labelCPUName;
         private Label labelCPUCores;
         private Label labelRAM;
@@ -23,23 +16,31 @@ namespace Savior.UI
         private Label labelCpuTemp;
         private Label labelGpuTemp;
 
+        private Panel panelBSOD;
         private ListView listViewBSOD;
+
+        private Panel panelVirus;
         private ListView listViewVirus;
         private Button btnKillProcess;
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null)) components.Dispose();
+            if (disposing && (components != null))
+                components.Dispose();
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            sidebar = new System.Windows.Forms.Panel();
             btnGeneral = new System.Windows.Forms.Button();
             btnBSOD = new System.Windows.Forms.Button();
             btnVirus = new System.Windows.Forms.Button();
-            contentContainer = new System.Windows.Forms.Panel();
             panelGeneral = new System.Windows.Forms.Panel();
             labelCPUName = new System.Windows.Forms.Label();
             labelCPUCores = new System.Windows.Forms.Label();
@@ -53,48 +54,63 @@ namespace Savior.UI
             panelVirus = new System.Windows.Forms.Panel();
             listViewVirus = new System.Windows.Forms.ListView();
             btnKillProcess = new System.Windows.Forms.Button();
-            contentContainer.SuspendLayout();
+            sidebar.SuspendLayout();
             panelGeneral.SuspendLayout();
             panelBSOD.SuspendLayout();
             panelVirus.SuspendLayout();
             SuspendLayout();
-
+            // 
+            // sidebar
+            // 
+            sidebar.BackColor = System.Drawing.Color.Gainsboro;
+            sidebar.Controls.Add(btnVirus);
+            sidebar.Controls.Add(btnBSOD);
+            sidebar.Controls.Add(btnGeneral);
+            sidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            sidebar.Location = new System.Drawing.Point(0, 0);
+            sidebar.Name = "sidebar";
+            sidebar.Size = new System.Drawing.Size(150, 600);
+            sidebar.TabIndex = 3;
+            // 
             // btnGeneral
-            btnGeneral.Location = new System.Drawing.Point(10, 10);
+            // 
+            btnGeneral.Dock = System.Windows.Forms.DockStyle.Top;
+            btnGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnGeneral.ForeColor = System.Drawing.Color.Black;
+            btnGeneral.Location = new System.Drawing.Point(0, 100);
             btnGeneral.Name = "btnGeneral";
-            btnGeneral.Size = new System.Drawing.Size(100, 30);
+            btnGeneral.Size = new System.Drawing.Size(150, 49);
             btnGeneral.TabIndex = 0;
             btnGeneral.Text = "Général";
             btnGeneral.Click += BtnGeneral_Click;
-
+            // 
             // btnBSOD
-            btnBSOD.Location = new System.Drawing.Point(120, 10);
+            // 
+            btnBSOD.Dock = System.Windows.Forms.DockStyle.Top;
+            btnBSOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnBSOD.ForeColor = System.Drawing.Color.Black;
+            btnBSOD.Location = new System.Drawing.Point(0, 50);
             btnBSOD.Name = "btnBSOD";
-            btnBSOD.Size = new System.Drawing.Size(100, 30);
+            btnBSOD.Size = new System.Drawing.Size(150, 50);
             btnBSOD.TabIndex = 1;
             btnBSOD.Text = "BSOD";
             btnBSOD.Click += BtnBSOD_Click;
-
+            // 
             // btnVirus
-            btnVirus.Location = new System.Drawing.Point(230, 10);
+            // 
+            btnVirus.Dock = System.Windows.Forms.DockStyle.Top;
+            btnVirus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnVirus.ForeColor = System.Drawing.Color.Black;
+            btnVirus.Location = new System.Drawing.Point(0, 0);
             btnVirus.Name = "btnVirus";
-            btnVirus.Size = new System.Drawing.Size(100, 30);
+            btnVirus.Size = new System.Drawing.Size(150, 50);
             btnVirus.TabIndex = 2;
-            btnVirus.Text = "Process";
+            btnVirus.Text = "Virus";
             btnVirus.Click += BtnVirus_Click;
-
-            // contentContainer
-            contentContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            contentContainer.Controls.Add(panelGeneral);
-            contentContainer.Controls.Add(panelBSOD);
-            contentContainer.Controls.Add(panelVirus);
-            contentContainer.Location = new System.Drawing.Point(0, 50);
-            contentContainer.Name = "contentContainer";
-            contentContainer.Size = new System.Drawing.Size(800, 450);
-            contentContainer.TabIndex = 3;
-
+            // 
             // panelGeneral
-            panelGeneral.BorderStyle = BorderStyle.FixedSingle;
+            // 
+            panelGeneral.BackColor = System.Drawing.Color.White;
             panelGeneral.Controls.Add(labelCPUName);
             panelGeneral.Controls.Add(labelCPUCores);
             panelGeneral.Controls.Add(labelRAM);
@@ -102,76 +118,128 @@ namespace Savior.UI
             panelGeneral.Controls.Add(labelGPU);
             panelGeneral.Controls.Add(labelCpuTemp);
             panelGeneral.Controls.Add(labelGpuTemp);
-            panelGeneral.Dock = DockStyle.Fill;
-            panelGeneral.Location = new System.Drawing.Point(0, 0);
+            panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelGeneral.Location = new System.Drawing.Point(150, 0);
             panelGeneral.Name = "panelGeneral";
-            panelGeneral.Size = new System.Drawing.Size(800, 450);
+            panelGeneral.Size = new System.Drawing.Size(850, 600);
             panelGeneral.TabIndex = 0;
-
-            // labels
-            labelCPUName.Location = new System.Drawing.Point(10, 10);
-            labelCPUName.Size = new System.Drawing.Size(700, 20);
-            labelCPUCores.Location = new System.Drawing.Point(10, 35);
-            labelCPUCores.Size = new System.Drawing.Size(700, 20);
-            labelRAM.Location = new System.Drawing.Point(10, 60);
-            labelRAM.Size = new System.Drawing.Size(700, 20);
-            labelDisk.Location = new System.Drawing.Point(10, 85);
-            labelDisk.Size = new System.Drawing.Size(700, 60);
-            labelGPU.Location = new System.Drawing.Point(10, 155);
-            labelGPU.Size = new System.Drawing.Size(700, 20);
-            labelCpuTemp.Location = new System.Drawing.Point(10, 180);
-            labelCpuTemp.Size = new System.Drawing.Size(700, 20);
-            labelGpuTemp.Location = new System.Drawing.Point(10, 205);
-            labelGpuTemp.Size = new System.Drawing.Size(700, 20);
-
+            // 
+            // labelCPUName
+            // 
+            labelCPUName.Location = new System.Drawing.Point(160, 20);
+            labelCPUName.Name = "labelCPUName";
+            labelCPUName.Size = new System.Drawing.Size(800, 23);
+            labelCPUName.TabIndex = 0;
+            // 
+            // labelCPUCores
+            // 
+            labelCPUCores.Location = new System.Drawing.Point(160, 50);
+            labelCPUCores.Name = "labelCPUCores";
+            labelCPUCores.Size = new System.Drawing.Size(800, 23);
+            labelCPUCores.TabIndex = 1;
+            // 
+            // labelRAM
+            // 
+            labelRAM.Location = new System.Drawing.Point(160, 80);
+            labelRAM.Name = "labelRAM";
+            labelRAM.Size = new System.Drawing.Size(800, 23);
+            labelRAM.TabIndex = 2;
+            // 
+            // labelDisk
+            // 
+            labelDisk.Location = new System.Drawing.Point(160, 110);
+            labelDisk.Name = "labelDisk";
+            labelDisk.Size = new System.Drawing.Size(800, 100);
+            labelDisk.TabIndex = 3;
+            // 
+            // labelGPU
+            // 
+            labelGPU.Location = new System.Drawing.Point(160, 210);
+            labelGPU.Name = "labelGPU";
+            labelGPU.Size = new System.Drawing.Size(800, 23);
+            labelGPU.TabIndex = 4;
+            // 
+            // labelCpuTemp
+            // 
+            labelCpuTemp.Location = new System.Drawing.Point(160, 250);
+            labelCpuTemp.Name = "labelCpuTemp";
+            labelCpuTemp.Size = new System.Drawing.Size(800, 23);
+            labelCpuTemp.TabIndex = 5;
+            // 
+            // labelGpuTemp
+            // 
+            labelGpuTemp.Location = new System.Drawing.Point(160, 280);
+            labelGpuTemp.Name = "labelGpuTemp";
+            labelGpuTemp.Size = new System.Drawing.Size(800, 23);
+            labelGpuTemp.TabIndex = 6;
+            // 
             // panelBSOD
-            panelBSOD.BorderStyle = BorderStyle.FixedSingle;
+            // 
+            panelBSOD.BackColor = System.Drawing.Color.White;
             panelBSOD.Controls.Add(listViewBSOD);
-            panelBSOD.Dock = DockStyle.Fill;
-            panelBSOD.Location = new System.Drawing.Point(0, 0);
+            panelBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelBSOD.Location = new System.Drawing.Point(150, 0);
             panelBSOD.Name = "panelBSOD";
-            panelBSOD.Size = new System.Drawing.Size(800, 450);
+            panelBSOD.Size = new System.Drawing.Size(850, 600);
             panelBSOD.TabIndex = 1;
             panelBSOD.Visible = false;
-
+            // 
             // listViewBSOD
-            listViewBSOD.Dock = DockStyle.Fill;
+            // 
+            listViewBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
             listViewBSOD.FullRowSelect = true;
-            listViewBSOD.View = View.Details;
-            listViewBSOD.Size = new System.Drawing.Size(798, 448);
-
+            listViewBSOD.GridLines = true;
+            listViewBSOD.Location = new System.Drawing.Point(0, 0);
+            listViewBSOD.Name = "listViewBSOD";
+            listViewBSOD.Size = new System.Drawing.Size(850, 600);
+            listViewBSOD.TabIndex = 0;
+            listViewBSOD.UseCompatibleStateImageBehavior = false;
+            listViewBSOD.View = System.Windows.Forms.View.Details;
+            // 
             // panelVirus
-            panelVirus.BorderStyle = BorderStyle.FixedSingle;
+            // 
+            panelVirus.BackColor = System.Drawing.Color.White;
             panelVirus.Controls.Add(listViewVirus);
             panelVirus.Controls.Add(btnKillProcess);
-            panelVirus.Dock = DockStyle.Fill;
-            panelVirus.Location = new System.Drawing.Point(0, 0);
+            panelVirus.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelVirus.Location = new System.Drawing.Point(150, 0);
             panelVirus.Name = "panelVirus";
-            panelVirus.Size = new System.Drawing.Size(800, 450);
+            panelVirus.Size = new System.Drawing.Size(850, 600);
             panelVirus.TabIndex = 2;
             panelVirus.Visible = false;
-
+            // 
             // listViewVirus
-            listViewVirus.Dock = DockStyle.Fill;
+            // 
             listViewVirus.FullRowSelect = true;
-            listViewVirus.View = View.Details;
-
+            listViewVirus.GridLines = true;
+            listViewVirus.Location = new System.Drawing.Point(0, 0);
+            listViewVirus.Name = "listViewVirus";
+            listViewVirus.Size = new System.Drawing.Size(850, 520);
+            listViewVirus.TabIndex = 0;
+            listViewVirus.UseCompatibleStateImageBehavior = false;
+            listViewVirus.View = System.Windows.Forms.View.Details;
+            // 
             // btnKillProcess
-            btnKillProcess.Dock = DockStyle.Bottom;
-            btnKillProcess.Size = new System.Drawing.Size(798, 40);
-            btnKillProcess.Text = "Tuer le processus sélectionné";
+            // 
+            btnKillProcess.Location = new System.Drawing.Point(10, 530);
+            btnKillProcess.Name = "btnKillProcess";
+            btnKillProcess.Size = new System.Drawing.Size(75, 23);
+            btnKillProcess.TabIndex = 1;
+            btnKillProcess.Text = "Terminer le processus";
             btnKillProcess.Click += BtnKillProcess_Click;
-
+            // 
             // MainForm
-            ClientSize = new System.Drawing.Size(800, 500);
-            Controls.Add(btnGeneral);
-            Controls.Add(btnBSOD);
-            Controls.Add(btnVirus);
-            Controls.Add(contentContainer);
+            // 
+            ClientSize = new System.Drawing.Size(1000, 600);
+            Controls.Add(panelBSOD);
+            Controls.Add(panelVirus);
+            Controls.Add(panelGeneral);
+            Controls.Add(sidebar);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
-            MinimumSize = new System.Drawing.Size(800, 500);
-            Text = "Savior";
-            contentContainer.ResumeLayout(false);
+            MaximizeBox = false;
+            Text = "Savior - Maintenance Système";
+            sidebar.ResumeLayout(false);
             panelGeneral.ResumeLayout(false);
             panelBSOD.ResumeLayout(false);
             panelVirus.ResumeLayout(false);

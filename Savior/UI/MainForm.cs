@@ -18,6 +18,9 @@ namespace Savior.UI
         {
             InitializeComponent();
 
+            if (IsInDesignMode())
+                return;
+
             // Configuration du ListView BSOD
             listViewBSOD.Columns.Add("Date", 150);
             listViewBSOD.Columns.Add("Source", 100);
@@ -31,15 +34,12 @@ namespace Savior.UI
             listViewVirus.Columns.Add("Signé", 70);
             listViewVirus.Columns.Add("Chemin", 400);
 
-            if (!DesignMode && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
-                this.Load += MainForm_Load;
+            this.Load += MainForm_Load;
         }
-
 
         private void MainForm_Load(object? sender, EventArgs e)
         {
-            // Assurez-vous que l'application n'est pas en mode design
-            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode)
+            if (IsInDesignMode())
                 return;
 
             InitializeServices();
@@ -56,6 +56,9 @@ namespace Savior.UI
 
         private void InitializeServices()
         {
+            if (IsInDesignMode())
+                return;
+
             _hardwareMonitor = new HardwareMonitorService();
             _systemInfo = new SystemInfoService();
             _bsodService = new BsodEventService();
@@ -64,6 +67,9 @@ namespace Savior.UI
 
         private void LoadSystemInfo()
         {
+            if (IsInDesignMode())
+                return;
+
             var cpu = _systemInfo.GetCpuInfo();
             labelCPUName.Text = "Processeur : " + cpu.Name;
             labelCPUCores.Text = $"Cœurs logiques : {cpu.LogicalCores} | Cœurs physiques : {cpu.PhysicalCores}";
@@ -75,6 +81,9 @@ namespace Savior.UI
 
         private void RefreshTemperatures()
         {
+            if (IsInDesignMode())
+                return;
+
             var gpuTemps = _hardwareMonitor.GetGpuTemperatures();
             labelGpuTemp.Text = gpuTemps.Count > 0
                 ? string.Join("  ", gpuTemps.Select(t => $"{t.Key}: {t.Value} °C"))
@@ -104,7 +113,7 @@ namespace Savior.UI
 
             foreach (var ev in events)
             {
-                listViewBSOD.Items.Add(new ListViewItem(new[]
+                SafeAddItem(listViewBSOD, new ListViewItem(new[]
                 {
                     ev.Date,
                     ev.Source,
@@ -116,7 +125,7 @@ namespace Savior.UI
             if (events.Count == 0)
             {
                 var item = new ListViewItem(new[] { "", "", "", "Aucun événement BSOD trouvé" });
-                listViewBSOD.Items.Add(item);
+                SafeAddItem(listViewBSOD, item);
             }
         }
 
@@ -137,7 +146,7 @@ namespace Savior.UI
                 item.SubItems.Add(proc.IsSigned ? "Oui" : "Non");
                 item.SubItems.Add(proc.Path);
                 item.Tag = proc;
-                listViewVirus.Items.Add(item);
+                SafeAddItem(listViewVirus, item);
             }
         }
 
@@ -153,6 +162,19 @@ namespace Savior.UI
                     BtnVirus_Click(null, null); // Refresh
                 }
             }
+        }
+
+        private void SafeAddItem(ListView listView, ListViewItem item)
+        {
+            if (listView.InvokeRequired)
+                listView.Invoke(() => listView.Items.Add(item));
+            else
+                listView.Items.Add(item);
+        }
+
+        private bool IsInDesignMode()
+        {
+            return LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
         }
     }
 }
