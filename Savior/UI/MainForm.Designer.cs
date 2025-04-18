@@ -7,243 +7,294 @@
         private System.Windows.Forms.Button btnGeneral;
         private System.Windows.Forms.Button btnBSOD;
         private System.Windows.Forms.Button btnVirus;
-        private Panel panelGeneral;
-        private Label labelCPUName;
-        private Label labelCPUCores;
-        private Label labelRAM;
-        private Label labelDisk;
-        private Label labelGPU;
-        private Label labelCpuTemp;
-        private Label labelGpuTemp;
+        private System.Windows.Forms.Panel panelGeneral;
+        private System.Windows.Forms.Label labelCPUName;
+        private System.Windows.Forms.Label labelCPUCores;
+        private System.Windows.Forms.Label labelRAM;
+        private System.Windows.Forms.Label labelDisk;
+        private System.Windows.Forms.Label labelGPU;
+        private System.Windows.Forms.Label labelCpuTemp;
+        private System.Windows.Forms.Label labelGpuTemp;
+        private System.Windows.Forms.Panel panelBSOD;
+        private System.Windows.Forms.ListView listViewBSOD;
+        private System.Windows.Forms.Panel panelVirus;
+        private System.Windows.Forms.ListView listViewVirus;
+        private System.Windows.Forms.Button btnKillProcess;
+        private System.Windows.Forms.Panel panelSoftware;
+        private System.Windows.Forms.CheckedListBox checkedListBoxSoftware;
+        private System.Windows.Forms.Button btnInstallSoftware;
+        private System.Windows.Forms.Button btnSoftware;
 
-        private Panel panelBSOD;
-        private ListView listViewBSOD;
-
-        private Panel panelVirus;
-        private ListView listViewVirus;
-        private Button btnKillProcess;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-                components.Dispose();
-            base.Dispose(disposing);
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            sidebar = new System.Windows.Forms.Panel();
-            btnGeneral = new System.Windows.Forms.Button();
-            btnBSOD = new System.Windows.Forms.Button();
-            btnVirus = new System.Windows.Forms.Button();
-            panelGeneral = new System.Windows.Forms.Panel();
-            labelCPUName = new System.Windows.Forms.Label();
-            labelCPUCores = new System.Windows.Forms.Label();
-            labelRAM = new System.Windows.Forms.Label();
-            labelDisk = new System.Windows.Forms.Label();
-            labelGPU = new System.Windows.Forms.Label();
-            labelCpuTemp = new System.Windows.Forms.Label();
-            labelGpuTemp = new System.Windows.Forms.Label();
-            panelBSOD = new System.Windows.Forms.Panel();
-            listViewBSOD = new System.Windows.Forms.ListView();
-            panelVirus = new System.Windows.Forms.Panel();
-            listViewVirus = new System.Windows.Forms.ListView();
-            btnKillProcess = new System.Windows.Forms.Button();
-            sidebar.SuspendLayout();
-            panelGeneral.SuspendLayout();
-            panelBSOD.SuspendLayout();
-            panelVirus.SuspendLayout();
-            SuspendLayout();
-            // 
+            this.sidebar = new System.Windows.Forms.Panel();
+            this.btnSoftware = new System.Windows.Forms.Button();
+            this.btnGeneral = new System.Windows.Forms.Button();
+            this.btnBSOD = new System.Windows.Forms.Button();
+            this.btnVirus = new System.Windows.Forms.Button();
+            this.panelGeneral = new System.Windows.Forms.Panel();
+            this.labelCPUName = new System.Windows.Forms.Label();
+            this.labelCPUCores = new System.Windows.Forms.Label();
+            this.labelRAM = new System.Windows.Forms.Label();
+            this.labelDisk = new System.Windows.Forms.Label();
+            this.labelGPU = new System.Windows.Forms.Label();
+            this.labelCpuTemp = new System.Windows.Forms.Label();
+            this.labelGpuTemp = new System.Windows.Forms.Label();
+            this.panelBSOD = new System.Windows.Forms.Panel();
+            this.listViewBSOD = new System.Windows.Forms.ListView();
+            this.panelVirus = new System.Windows.Forms.Panel();
+            this.listViewVirus = new System.Windows.Forms.ListView();
+            this.btnKillProcess = new System.Windows.Forms.Button();
+            this.panelSoftware = new System.Windows.Forms.Panel();
+            this.checkedListBoxSoftware = new System.Windows.Forms.CheckedListBox();
+            this.btnInstallSoftware = new System.Windows.Forms.Button();
+            this.sidebar.SuspendLayout();
+            this.panelGeneral.SuspendLayout();
+            this.panelBSOD.SuspendLayout();
+            this.panelVirus.SuspendLayout();
+            this.panelSoftware.SuspendLayout();
+            this.SuspendLayout();
+            //
             // sidebar
-            // 
-            sidebar.BackColor = System.Drawing.Color.Gainsboro;
-            sidebar.Controls.Add(btnVirus);
-            sidebar.Controls.Add(btnBSOD);
-            sidebar.Controls.Add(btnGeneral);
-            sidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            sidebar.Location = new System.Drawing.Point(0, 0);
-            sidebar.Name = "sidebar";
-            sidebar.Size = new System.Drawing.Size(150, 600);
-            sidebar.TabIndex = 3;
-            // 
+            //
+            this.sidebar.BackColor = System.Drawing.Color.Gainsboro;
+            this.sidebar.Controls.Add(this.btnSoftware);
+            this.sidebar.Controls.Add(this.btnVirus);
+            this.sidebar.Controls.Add(this.btnBSOD);
+            this.sidebar.Controls.Add(this.btnGeneral);
+            this.sidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidebar.Location = new System.Drawing.Point(0, 0);
+            this.sidebar.Name = "sidebar";
+            this.sidebar.Size = new System.Drawing.Size(150, 600);
+            this.sidebar.TabIndex = 3;
+            //
+            // btnSoftware
+            //
+            this.btnSoftware.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSoftware.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSoftware.ForeColor = System.Drawing.Color.Black;
+            this.btnSoftware.Location = new System.Drawing.Point(0, 150);
+            this.btnSoftware.Name = "btnSoftware";
+            this.btnSoftware.Size = new System.Drawing.Size(150, 50);
+            this.btnSoftware.TabIndex = 3;
+            this.btnSoftware.Text = "Logiciels";
+            this.btnSoftware.UseVisualStyleBackColor = true;
+            this.btnSoftware.Click += new System.EventHandler(this.BtnSoftware_Click);
+            //
             // btnGeneral
-            // 
-            btnGeneral.Dock = System.Windows.Forms.DockStyle.Top;
-            btnGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnGeneral.ForeColor = System.Drawing.Color.Black;
-            btnGeneral.Location = new System.Drawing.Point(0, 100);
-            btnGeneral.Name = "btnGeneral";
-            btnGeneral.Size = new System.Drawing.Size(150, 49);
-            btnGeneral.TabIndex = 0;
-            btnGeneral.Text = "Général";
-            btnGeneral.Click += BtnGeneral_Click;
-            // 
+            //
+            this.btnGeneral.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGeneral.ForeColor = System.Drawing.Color.Black;
+            this.btnGeneral.Location = new System.Drawing.Point(0, 100);
+            this.btnGeneral.Name = "btnGeneral";
+            this.btnGeneral.Size = new System.Drawing.Size(150, 50);
+            this.btnGeneral.TabIndex = 0;
+            this.btnGeneral.Text = "Général";
+            this.btnGeneral.UseVisualStyleBackColor = true;
+            this.btnGeneral.Click += new System.EventHandler(this.BtnGeneral_Click);
+            //
             // btnBSOD
-            // 
-            btnBSOD.Dock = System.Windows.Forms.DockStyle.Top;
-            btnBSOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnBSOD.ForeColor = System.Drawing.Color.Black;
-            btnBSOD.Location = new System.Drawing.Point(0, 50);
-            btnBSOD.Name = "btnBSOD";
-            btnBSOD.Size = new System.Drawing.Size(150, 50);
-            btnBSOD.TabIndex = 1;
-            btnBSOD.Text = "BSOD";
-            btnBSOD.Click += BtnBSOD_Click;
-            // 
+            //
+            this.btnBSOD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBSOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBSOD.ForeColor = System.Drawing.Color.Black;
+            this.btnBSOD.Location = new System.Drawing.Point(0, 50);
+            this.btnBSOD.Name = "btnBSOD";
+            this.btnBSOD.Size = new System.Drawing.Size(150, 50);
+            this.btnBSOD.TabIndex = 1;
+            this.btnBSOD.Text = "BSOD";
+            this.btnBSOD.UseVisualStyleBackColor = true;
+            this.btnBSOD.Click += new System.EventHandler(this.BtnBSOD_Click);
+            //
             // btnVirus
-            // 
-            btnVirus.Dock = System.Windows.Forms.DockStyle.Top;
-            btnVirus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnVirus.ForeColor = System.Drawing.Color.Black;
-            btnVirus.Location = new System.Drawing.Point(0, 0);
-            btnVirus.Name = "btnVirus";
-            btnVirus.Size = new System.Drawing.Size(150, 50);
-            btnVirus.TabIndex = 2;
-            btnVirus.Text = "Virus";
-            btnVirus.Click += BtnVirus_Click;
-            // 
+            //
+            this.btnVirus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVirus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVirus.ForeColor = System.Drawing.Color.Black;
+            this.btnVirus.Location = new System.Drawing.Point(0, 0);
+            this.btnVirus.Name = "btnVirus";
+            this.btnVirus.Size = new System.Drawing.Size(150, 50);
+            this.btnVirus.TabIndex = 2;
+            this.btnVirus.Text = "Virus";
+            this.btnVirus.UseVisualStyleBackColor = true;
+            this.btnVirus.Click += new System.EventHandler(this.BtnVirus_Click);
+            //
             // panelGeneral
-            // 
-            panelGeneral.BackColor = System.Drawing.Color.White;
-            panelGeneral.Controls.Add(labelCPUName);
-            panelGeneral.Controls.Add(labelCPUCores);
-            panelGeneral.Controls.Add(labelRAM);
-            panelGeneral.Controls.Add(labelDisk);
-            panelGeneral.Controls.Add(labelGPU);
-            panelGeneral.Controls.Add(labelCpuTemp);
-            panelGeneral.Controls.Add(labelGpuTemp);
-            panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelGeneral.Location = new System.Drawing.Point(150, 0);
-            panelGeneral.Name = "panelGeneral";
-            panelGeneral.Size = new System.Drawing.Size(850, 600);
-            panelGeneral.TabIndex = 0;
-            // 
+            //
+            this.panelGeneral.BackColor = System.Drawing.Color.White;
+            this.panelGeneral.Controls.Add(this.labelCPUName);
+            this.panelGeneral.Controls.Add(this.labelCPUCores);
+            this.panelGeneral.Controls.Add(this.labelRAM);
+            this.panelGeneral.Controls.Add(this.labelDisk);
+            this.panelGeneral.Controls.Add(this.labelGPU);
+            this.panelGeneral.Controls.Add(this.labelCpuTemp);
+            this.panelGeneral.Controls.Add(this.labelGpuTemp);
+            this.panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGeneral.Location = new System.Drawing.Point(150, 0);
+            this.panelGeneral.Name = "panelGeneral";
+            this.panelGeneral.Size = new System.Drawing.Size(850, 600);
+            this.panelGeneral.TabIndex = 0;
+            //
             // labelCPUName
-            // 
-            labelCPUName.Location = new System.Drawing.Point(160, 20);
-            labelCPUName.Name = "labelCPUName";
-            labelCPUName.Size = new System.Drawing.Size(800, 23);
-            labelCPUName.TabIndex = 0;
-            // 
+            //
+            this.labelCPUName.Location = new System.Drawing.Point(160, 20);
+            this.labelCPUName.Name = "labelCPUName";
+            this.labelCPUName.Size = new System.Drawing.Size(800, 23);
+            this.labelCPUName.TabIndex = 0;
+            //
             // labelCPUCores
-            // 
-            labelCPUCores.Location = new System.Drawing.Point(160, 50);
-            labelCPUCores.Name = "labelCPUCores";
-            labelCPUCores.Size = new System.Drawing.Size(800, 23);
-            labelCPUCores.TabIndex = 1;
-            // 
+            //
+            this.labelCPUCores.Location = new System.Drawing.Point(160, 50);
+            this.labelCPUCores.Name = "labelCPUCores";
+            this.labelCPUCores.Size = new System.Drawing.Size(800, 23);
+            this.labelCPUCores.TabIndex = 1;
+            //
             // labelRAM
-            // 
-            labelRAM.Location = new System.Drawing.Point(160, 80);
-            labelRAM.Name = "labelRAM";
-            labelRAM.Size = new System.Drawing.Size(800, 23);
-            labelRAM.TabIndex = 2;
-            // 
+            //
+            this.labelRAM.Location = new System.Drawing.Point(160, 80);
+            this.labelRAM.Name = "labelRAM";
+            this.labelRAM.Size = new System.Drawing.Size(800, 23);
+            this.labelRAM.TabIndex = 2;
+            //
             // labelDisk
-            // 
-            labelDisk.Location = new System.Drawing.Point(160, 110);
-            labelDisk.Name = "labelDisk";
-            labelDisk.Size = new System.Drawing.Size(800, 100);
-            labelDisk.TabIndex = 3;
-            // 
+            //
+            this.labelDisk.Location = new System.Drawing.Point(160, 110);
+            this.labelDisk.Name = "labelDisk";
+            this.labelDisk.Size = new System.Drawing.Size(800, 100);
+            this.labelDisk.TabIndex = 3;
+            //
             // labelGPU
-            // 
-            labelGPU.Location = new System.Drawing.Point(160, 210);
-            labelGPU.Name = "labelGPU";
-            labelGPU.Size = new System.Drawing.Size(800, 23);
-            labelGPU.TabIndex = 4;
-            // 
+            //
+            this.labelGPU.Location = new System.Drawing.Point(160, 210);
+            this.labelGPU.Name = "labelGPU";
+            this.labelGPU.Size = new System.Drawing.Size(800, 23);
+            this.labelGPU.TabIndex = 4;
+            //
             // labelCpuTemp
-            // 
-            labelCpuTemp.Location = new System.Drawing.Point(160, 250);
-            labelCpuTemp.Name = "labelCpuTemp";
-            labelCpuTemp.Size = new System.Drawing.Size(800, 23);
-            labelCpuTemp.TabIndex = 5;
-            // 
+            //
+            this.labelCpuTemp.Location = new System.Drawing.Point(160, 250);
+            this.labelCpuTemp.Name = "labelCpuTemp";
+            this.labelCpuTemp.Size = new System.Drawing.Size(800, 23);
+            this.labelCpuTemp.TabIndex = 5;
+            //
             // labelGpuTemp
-            // 
-            labelGpuTemp.Location = new System.Drawing.Point(160, 280);
-            labelGpuTemp.Name = "labelGpuTemp";
-            labelGpuTemp.Size = new System.Drawing.Size(800, 23);
-            labelGpuTemp.TabIndex = 6;
-            // 
+            //
+            this.labelGpuTemp.Location = new System.Drawing.Point(160, 280);
+            this.labelGpuTemp.Name = "labelGpuTemp";
+            this.labelGpuTemp.Size = new System.Drawing.Size(800, 23);
+            this.labelGpuTemp.TabIndex = 6;
+            //
             // panelBSOD
-            // 
-            panelBSOD.BackColor = System.Drawing.Color.White;
-            panelBSOD.Controls.Add(listViewBSOD);
-            panelBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelBSOD.Location = new System.Drawing.Point(150, 0);
-            panelBSOD.Name = "panelBSOD";
-            panelBSOD.Size = new System.Drawing.Size(850, 600);
-            panelBSOD.TabIndex = 1;
-            panelBSOD.Visible = false;
-            // 
+            //
+            this.panelBSOD.BackColor = System.Drawing.Color.White;
+            this.panelBSOD.Controls.Add(this.listViewBSOD);
+            this.panelBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBSOD.Location = new System.Drawing.Point(150, 0);
+            this.panelBSOD.Name = "panelBSOD";
+            this.panelBSOD.Size = new System.Drawing.Size(850, 600);
+            this.panelBSOD.TabIndex = 1;
+            this.panelBSOD.Visible = false;
+            //
             // listViewBSOD
-            // 
-            listViewBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewBSOD.FullRowSelect = true;
-            listViewBSOD.GridLines = true;
-            listViewBSOD.Location = new System.Drawing.Point(0, 0);
-            listViewBSOD.Name = "listViewBSOD";
-            listViewBSOD.Size = new System.Drawing.Size(850, 600);
-            listViewBSOD.TabIndex = 0;
-            listViewBSOD.UseCompatibleStateImageBehavior = false;
-            listViewBSOD.View = System.Windows.Forms.View.Details;
-            // 
+            //
+            this.listViewBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewBSOD.FullRowSelect = true;
+            this.listViewBSOD.GridLines = true;
+            this.listViewBSOD.Location = new System.Drawing.Point(0, 0);
+            this.listViewBSOD.Name = "listViewBSOD";
+            this.listViewBSOD.Size = new System.Drawing.Size(850, 600);
+            this.listViewBSOD.TabIndex = 0;
+            this.listViewBSOD.UseCompatibleStateImageBehavior = false;
+            this.listViewBSOD.View = System.Windows.Forms.View.Details;
+            //
             // panelVirus
-            // 
-            panelVirus.BackColor = System.Drawing.Color.White;
-            panelVirus.Controls.Add(listViewVirus);
-            panelVirus.Controls.Add(btnKillProcess);
-            panelVirus.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelVirus.Location = new System.Drawing.Point(150, 0);
-            panelVirus.Name = "panelVirus";
-            panelVirus.Size = new System.Drawing.Size(850, 600);
-            panelVirus.TabIndex = 2;
-            panelVirus.Visible = false;
-            // 
+            //
+            this.panelVirus.BackColor = System.Drawing.Color.White;
+            this.panelVirus.Controls.Add(this.listViewVirus);
+            this.panelVirus.Controls.Add(this.btnKillProcess);
+            this.panelVirus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelVirus.Location = new System.Drawing.Point(150, 0);
+            this.panelVirus.Name = "panelVirus";
+            this.panelVirus.Size = new System.Drawing.Size(850, 600);
+            this.panelVirus.TabIndex = 2;
+            this.panelVirus.Visible = false;
+            //
             // listViewVirus
-            // 
-            listViewVirus.FullRowSelect = true;
-            listViewVirus.GridLines = true;
-            listViewVirus.Location = new System.Drawing.Point(0, 0);
-            listViewVirus.Name = "listViewVirus";
-            listViewVirus.Size = new System.Drawing.Size(850, 520);
-            listViewVirus.TabIndex = 0;
-            listViewVirus.UseCompatibleStateImageBehavior = false;
-            listViewVirus.View = System.Windows.Forms.View.Details;
-            // 
+            //
+            this.listViewVirus.FullRowSelect = true;
+            this.listViewVirus.GridLines = true;
+            this.listViewVirus.Location = new System.Drawing.Point(0, 0);
+            this.listViewVirus.Name = "listViewVirus";
+            this.listViewVirus.Size = new System.Drawing.Size(850, 520);
+            this.listViewVirus.TabIndex = 0;
+            this.listViewVirus.UseCompatibleStateImageBehavior = false;
+            this.listViewVirus.View = System.Windows.Forms.View.Details;
+            //
             // btnKillProcess
-            // 
-            btnKillProcess.Location = new System.Drawing.Point(10, 530);
-            btnKillProcess.Name = "btnKillProcess";
-            btnKillProcess.Size = new System.Drawing.Size(75, 23);
-            btnKillProcess.TabIndex = 1;
-            btnKillProcess.Text = "Terminer le processus";
-            btnKillProcess.Click += BtnKillProcess_Click;
-            // 
+            //
+            this.btnKillProcess.Location = new System.Drawing.Point(10, 530);
+            this.btnKillProcess.Name = "btnKillProcess";
+            this.btnKillProcess.Size = new System.Drawing.Size(75, 23);
+            this.btnKillProcess.TabIndex = 1;
+            this.btnKillProcess.Text = "Terminer le processus";
+            this.btnKillProcess.UseVisualStyleBackColor = true;
+            this.btnKillProcess.Click += new System.EventHandler(this.BtnKillProcess_Click);
+            //
+            // panelSoftware
+            //
+            this.panelSoftware.Controls.Add(this.checkedListBoxSoftware);
+            this.panelSoftware.Controls.Add(this.btnInstallSoftware);
+            this.panelSoftware.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSoftware.Location = new System.Drawing.Point(150, 0);
+            this.panelSoftware.Name = "panelSoftware";
+            this.panelSoftware.Size = new System.Drawing.Size(850, 600);
+            this.panelSoftware.TabIndex = 3;
+            this.panelSoftware.Visible = false;
+            //
+            // checkedListBoxSoftware
+            //
+            this.checkedListBoxSoftware.FormattingEnabled = true;
+            this.checkedListBoxSoftware.Items.AddRange(new object[] {
+                "VLC",
+                "Sublime Text"
+            });
+            this.checkedListBoxSoftware.Location = new System.Drawing.Point(10, 10);
+            this.checkedListBoxSoftware.Name = "checkedListBoxSoftware";
+            this.checkedListBoxSoftware.Size = new System.Drawing.Size(200, 94);
+            this.checkedListBoxSoftware.TabIndex = 0;
+            //
+            // btnInstallSoftware
+            //
+            this.btnInstallSoftware.Location = new System.Drawing.Point(10, 110);
+            this.btnInstallSoftware.Name = "btnInstallSoftware";
+            this.btnInstallSoftware.Size = new System.Drawing.Size(75, 23);
+            this.btnInstallSoftware.TabIndex = 1;
+            this.btnInstallSoftware.Text = "Installer";
+            this.btnInstallSoftware.UseVisualStyleBackColor = true;
+            this.btnInstallSoftware.Click += new System.EventHandler(this.BtnInstallSoftware_Click);
+            //
             // MainForm
-            // 
-            ClientSize = new System.Drawing.Size(1000, 600);
-            Controls.Add(panelBSOD);
-            Controls.Add(panelVirus);
-            Controls.Add(panelGeneral);
-            Controls.Add(sidebar);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
-            MaximizeBox = false;
-            Text = "Savior - Maintenance Système";
-            sidebar.ResumeLayout(false);
-            panelGeneral.ResumeLayout(false);
-            panelBSOD.ResumeLayout(false);
-            panelVirus.ResumeLayout(false);
-            ResumeLayout(false);
+            //
+            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.panelSoftware);
+            this.Controls.Add(this.panelBSOD);
+            this.Controls.Add(this.panelVirus);
+            this.Controls.Add(this.panelGeneral);
+            this.Controls.Add(this.sidebar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "MainForm";
+            this.Text = "Savior - Maintenance Système";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.sidebar.ResumeLayout(false);
+            this.panelGeneral.ResumeLayout(false);
+            this.panelBSOD.ResumeLayout(false);
+            this.panelVirus.ResumeLayout(false);
+            this.panelSoftware.ResumeLayout(false);
+            this.ResumeLayout(false);
         }
     }
 }
