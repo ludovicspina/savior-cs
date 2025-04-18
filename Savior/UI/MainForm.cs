@@ -102,7 +102,7 @@ namespace Savior.UI
             panelGeneral.Visible = true;
             panelBSOD.Visible = false;
             panelVirus.Visible = false;
-            panelSoftware.Visible = false;
+            panelInstallation.Visible = false;
         }
 
         private void BtnBSOD_Click(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace Savior.UI
             panelGeneral.Visible = false;
             panelBSOD.Visible = true;
             panelVirus.Visible = false;
-            panelSoftware.Visible = false;
+            panelInstallation.Visible = false;
 
             listViewBSOD.Items.Clear();
             var events = _bsodService.GetRecentBsodEvents();
@@ -138,7 +138,7 @@ namespace Savior.UI
             panelGeneral.Visible = false;
             panelBSOD.Visible = false;
             panelVirus.Visible = true;
-            panelSoftware.Visible = false;
+            panelInstallation.Visible = false;
 
             listViewVirus.Items.Clear();
             var processes = _processScanner.ScanProcesses();
@@ -155,12 +155,12 @@ namespace Savior.UI
             }
         }
 
-        private void BtnSoftware_Click(object sender, EventArgs e)
+        private void BtnInstallation_Click(object sender, EventArgs e)
         {
             panelGeneral.Visible = false;
             panelBSOD.Visible = false;
             panelVirus.Visible = false;
-            panelSoftware.Visible = true;
+            panelInstallation.Visible = true;
         }
 
         private void BtnKillProcess_Click(object sender, EventArgs e)
@@ -177,171 +177,56 @@ namespace Savior.UI
             }
         }
 
-        private void BtnInstallSoftware_Click(object sender, EventArgs e)
-        {
-            foreach (var item in checkedListBoxSoftware.CheckedItems)
-            {
-                string softwareName = item.ToString().ToLower().Replace(" ", "");
-                InstallSoftware(softwareName);
-            }
-        }
-
-        private void InstallSoftware(string softwareName)
+        private void BtnOpenPowerShell_Click(object sender, EventArgs e)
         {
             try
             {
-                // Vérifier si Chocolatey est installé
-                if (!IsChocolateyInstalled())
+                string arguments = "-NoExit -Command \"";
+
+                if (checkBoxVLC.Checked)
                 {
-                    var result = MessageBox.Show("Chocolatey n'est pas installé. Voulez-vous l'installer maintenant ?", "Installation de Chocolatey", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        if (!IsRunningAsAdmin())
-                        {
-                            RestartAsAdmin();
-                            return;
-                        }
-                        InstallChocolatey();
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    arguments += "winget install --id VideoLAN.VLC -e; ";
                 }
 
-                // Vérifier si le logiciel est déjà installé
-                if (IsSoftwareInstalled(softwareName))
+                if (checkBox7ZIP.Checked)
                 {
-                    MessageBox.Show($"{softwareName} est déjà installé.");
-                    return;
+                    arguments += "winget install --id 7zip.7zip -e; ";
                 }
 
-                // Installer le logiciel via Chocolatey
+                if (checkBoxChrome.Checked)
+                {
+                    arguments += "winget install --id Google.Chrome -e; ";
+                }
+
+                if (checkBoxAdobeReader.Checked)
+                {
+                    arguments += "winget install --id Adobe.Acrobat.Reader.64-bit -e; ";
+                }
+
+                if (checkBoxSublimeText.Checked)
+                {
+                    arguments += "winget install --id SublimeHQ.SublimeText -e; ";
+                }
+
+                if (checkBoxLibreOffice.Checked)
+                {
+                    arguments += "winget install --id TheDocumentFoundation.LibreOffice -e; ";
+                }
+
+                arguments = arguments.TrimEnd(' ', ';'); // Remove the trailing semicolon and space
+
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "powershell",
-                    Arguments = $"-Command \"choco install {softwareName} -y\"",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
+                    Arguments = arguments,
+                    UseShellExecute = true,
+                    Verb = "runas" // Pour exécuter en tant qu'administrateur
                 };
-
-                using (Process process = Process.Start(psi))
-                {
-                    process.WaitForExit();
-                    MessageBox.Show($"{softwareName} a été installé avec succès.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de l'installation de {softwareName}: {ex.Message}");
-            }
-        }
-
-        private bool IsChocolateyInstalled()
-        {
-            try
-            {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "choco",
-                    Arguments = "--version",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using (Process process = Process.Start(psi))
-                {
-                    process.WaitForExit();
-                    return process.ExitCode == 0;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private bool IsSoftwareInstalled(string softwareName)
-        {
-            try
-            {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "choco",
-                    Arguments = $"list --local-only --exact {softwareName}",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using (Process process = Process.Start(psi))
-                {
-                    process.WaitForExit();
-                    return process.ExitCode == 0;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private void InstallChocolatey()
-        {
-            try
-            {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "powershell",
-                    Arguments = "-NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))\"",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using (Process process = Process.Start(psi))
-                {
-                    process.WaitForExit();
-                    if (process.ExitCode == 0)
-                    {
-                        MessageBox.Show("Chocolatey a été installé avec succès.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de l'installation de Chocolatey.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de l'installation de Chocolatey: {ex.Message}");
-            }
-        }
-
-        private bool IsRunningAsAdmin()
-        {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-
-        private void RestartAsAdmin()
-        {
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = Application.ExecutablePath,
-                Verb = "runas"
-            };
-            try
-            {
                 Process.Start(psi);
-                Application.Exit();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors du redémarrage en tant qu'administrateur: {ex.Message}");
+                MessageBox.Show($"Erreur lors de l'ouverture de PowerShell: {ex.Message}");
             }
         }
 

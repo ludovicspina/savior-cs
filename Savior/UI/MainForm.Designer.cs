@@ -20,16 +20,21 @@
         private System.Windows.Forms.Panel panelVirus;
         private System.Windows.Forms.ListView listViewVirus;
         private System.Windows.Forms.Button btnKillProcess;
-        private System.Windows.Forms.Panel panelSoftware;
-        private System.Windows.Forms.CheckedListBox checkedListBoxSoftware;
-        private System.Windows.Forms.Button btnInstallSoftware;
-        private System.Windows.Forms.Button btnSoftware;
+        private System.Windows.Forms.Button btnInstallation;
+        private System.Windows.Forms.Panel panelInstallation;
+        private System.Windows.Forms.Button btnOpenPowerShell;
+        private System.Windows.Forms.CheckBox checkBoxVLC;
+        private System.Windows.Forms.CheckBox checkBox7ZIP;
+        private System.Windows.Forms.CheckBox checkBoxChrome;
+        private System.Windows.Forms.CheckBox checkBoxAdobeReader;
+        private System.Windows.Forms.CheckBox checkBoxSublimeText;
+        private System.Windows.Forms.CheckBox checkBoxLibreOffice;
 
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.sidebar = new System.Windows.Forms.Panel();
-            this.btnSoftware = new System.Windows.Forms.Button();
+            this.btnInstallation = new System.Windows.Forms.Button();
             this.btnGeneral = new System.Windows.Forms.Button();
             this.btnBSOD = new System.Windows.Forms.Button();
             this.btnVirus = new System.Windows.Forms.Button();
@@ -46,20 +51,25 @@
             this.panelVirus = new System.Windows.Forms.Panel();
             this.listViewVirus = new System.Windows.Forms.ListView();
             this.btnKillProcess = new System.Windows.Forms.Button();
-            this.panelSoftware = new System.Windows.Forms.Panel();
-            this.checkedListBoxSoftware = new System.Windows.Forms.CheckedListBox();
-            this.btnInstallSoftware = new System.Windows.Forms.Button();
+            this.panelInstallation = new System.Windows.Forms.Panel();
+            this.btnOpenPowerShell = new System.Windows.Forms.Button();
+            this.checkBoxVLC = new System.Windows.Forms.CheckBox();
+            this.checkBox7ZIP = new System.Windows.Forms.CheckBox();
+            this.checkBoxChrome = new System.Windows.Forms.CheckBox();
+            this.checkBoxAdobeReader = new System.Windows.Forms.CheckBox();
+            this.checkBoxSublimeText = new System.Windows.Forms.CheckBox();
+            this.checkBoxLibreOffice = new System.Windows.Forms.CheckBox();
             this.sidebar.SuspendLayout();
             this.panelGeneral.SuspendLayout();
             this.panelBSOD.SuspendLayout();
             this.panelVirus.SuspendLayout();
-            this.panelSoftware.SuspendLayout();
+            this.panelInstallation.SuspendLayout();
             this.SuspendLayout();
             //
             // sidebar
             //
             this.sidebar.BackColor = System.Drawing.Color.Gainsboro;
-            this.sidebar.Controls.Add(this.btnSoftware);
+            this.sidebar.Controls.Add(this.btnInstallation);
             this.sidebar.Controls.Add(this.btnVirus);
             this.sidebar.Controls.Add(this.btnBSOD);
             this.sidebar.Controls.Add(this.btnGeneral);
@@ -69,18 +79,18 @@
             this.sidebar.Size = new System.Drawing.Size(150, 600);
             this.sidebar.TabIndex = 3;
             //
-            // btnSoftware
+            // btnInstallation
             //
-            this.btnSoftware.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSoftware.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSoftware.ForeColor = System.Drawing.Color.Black;
-            this.btnSoftware.Location = new System.Drawing.Point(0, 150);
-            this.btnSoftware.Name = "btnSoftware";
-            this.btnSoftware.Size = new System.Drawing.Size(150, 50);
-            this.btnSoftware.TabIndex = 3;
-            this.btnSoftware.Text = "Logiciels";
-            this.btnSoftware.UseVisualStyleBackColor = true;
-            this.btnSoftware.Click += new System.EventHandler(this.BtnSoftware_Click);
+            this.btnInstallation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnInstallation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInstallation.ForeColor = System.Drawing.Color.Black;
+            this.btnInstallation.Location = new System.Drawing.Point(0, 150);
+            this.btnInstallation.Name = "btnInstallation";
+            this.btnInstallation.Size = new System.Drawing.Size(150, 50);
+            this.btnInstallation.TabIndex = 3;
+            this.btnInstallation.Text = "Installation";
+            this.btnInstallation.UseVisualStyleBackColor = true;
+            this.btnInstallation.Click += new System.EventHandler(this.BtnInstallation_Click);
             //
             // btnGeneral
             //
@@ -242,43 +252,96 @@
             this.btnKillProcess.UseVisualStyleBackColor = true;
             this.btnKillProcess.Click += new System.EventHandler(this.BtnKillProcess_Click);
             //
-            // panelSoftware
+            // panelInstallation
             //
-            this.panelSoftware.Controls.Add(this.checkedListBoxSoftware);
-            this.panelSoftware.Controls.Add(this.btnInstallSoftware);
-            this.panelSoftware.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSoftware.Location = new System.Drawing.Point(150, 0);
-            this.panelSoftware.Name = "panelSoftware";
-            this.panelSoftware.Size = new System.Drawing.Size(850, 600);
-            this.panelSoftware.TabIndex = 3;
-            this.panelSoftware.Visible = false;
+            this.panelInstallation.Controls.Add(this.checkBoxVLC);
+            this.panelInstallation.Controls.Add(this.checkBox7ZIP);
+            this.panelInstallation.Controls.Add(this.checkBoxChrome);
+            this.panelInstallation.Controls.Add(this.checkBoxAdobeReader);
+            this.panelInstallation.Controls.Add(this.checkBoxSublimeText);
+            this.panelInstallation.Controls.Add(this.checkBoxLibreOffice);
+            this.panelInstallation.Controls.Add(this.btnOpenPowerShell);
+            this.panelInstallation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelInstallation.Location = new System.Drawing.Point(150, 0);
+            this.panelInstallation.Name = "panelInstallation";
+            this.panelInstallation.Size = new System.Drawing.Size(850, 600);
+            this.panelInstallation.TabIndex = 3;
+            this.panelInstallation.Visible = false;
             //
-            // checkedListBoxSoftware
+            // btnOpenPowerShell
             //
-            this.checkedListBoxSoftware.FormattingEnabled = true;
-            this.checkedListBoxSoftware.Items.AddRange(new object[] {
-                "VLC",
-                "Sublime Text"
-            });
-            this.checkedListBoxSoftware.Location = new System.Drawing.Point(10, 10);
-            this.checkedListBoxSoftware.Name = "checkedListBoxSoftware";
-            this.checkedListBoxSoftware.Size = new System.Drawing.Size(200, 94);
-            this.checkedListBoxSoftware.TabIndex = 0;
+            this.btnOpenPowerShell.Location = new System.Drawing.Point(10, 150);
+            this.btnOpenPowerShell.Name = "btnOpenPowerShell";
+            this.btnOpenPowerShell.Size = new System.Drawing.Size(150, 50);
+            this.btnOpenPowerShell.TabIndex = 0;
+            this.btnOpenPowerShell.Text = "Ouvrir PowerShell";
+            this.btnOpenPowerShell.UseVisualStyleBackColor = true;
+            this.btnOpenPowerShell.Click += new System.EventHandler(this.BtnOpenPowerShell_Click);
             //
-            // btnInstallSoftware
+            // checkBoxVLC
             //
-            this.btnInstallSoftware.Location = new System.Drawing.Point(10, 110);
-            this.btnInstallSoftware.Name = "btnInstallSoftware";
-            this.btnInstallSoftware.Size = new System.Drawing.Size(75, 23);
-            this.btnInstallSoftware.TabIndex = 1;
-            this.btnInstallSoftware.Text = "Installer";
-            this.btnInstallSoftware.UseVisualStyleBackColor = true;
-            this.btnInstallSoftware.Click += new System.EventHandler(this.BtnInstallSoftware_Click);
+            this.checkBoxVLC.AutoSize = true;
+            this.checkBoxVLC.Location = new System.Drawing.Point(10, 10);
+            this.checkBoxVLC.Name = "checkBoxVLC";
+            this.checkBoxVLC.Size = new System.Drawing.Size(53, 17);
+            this.checkBoxVLC.TabIndex = 1;
+            this.checkBoxVLC.Text = "VLC";
+            this.checkBoxVLC.UseVisualStyleBackColor = true;
+            //
+            // checkBox7ZIP
+            //
+            this.checkBox7ZIP.AutoSize = true;
+            this.checkBox7ZIP.Location = new System.Drawing.Point(10, 35);
+            this.checkBox7ZIP.Name = "checkBox7ZIP";
+            this.checkBox7ZIP.Size = new System.Drawing.Size(58, 17);
+            this.checkBox7ZIP.TabIndex = 2;
+            this.checkBox7ZIP.Text = "7ZIP";
+            this.checkBox7ZIP.UseVisualStyleBackColor = true;
+            //
+            // checkBoxChrome
+            //
+            this.checkBoxChrome.AutoSize = true;
+            this.checkBoxChrome.Location = new System.Drawing.Point(10, 60);
+            this.checkBoxChrome.Name = "checkBoxChrome";
+            this.checkBoxChrome.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxChrome.TabIndex = 3;
+            this.checkBoxChrome.Text = "Google Chrome";
+            this.checkBoxChrome.UseVisualStyleBackColor = true;
+            //
+            // checkBoxAdobeReader
+            //
+            this.checkBoxAdobeReader.AutoSize = true;
+            this.checkBoxAdobeReader.Location = new System.Drawing.Point(10, 85);
+            this.checkBoxAdobeReader.Name = "checkBoxAdobeReader";
+            this.checkBoxAdobeReader.Size = new System.Drawing.Size(93, 17);
+            this.checkBoxAdobeReader.TabIndex = 4;
+            this.checkBoxAdobeReader.Text = "Adobe Reader";
+            this.checkBoxAdobeReader.UseVisualStyleBackColor = true;
+            //
+            // checkBoxSublimeText
+            //
+            this.checkBoxSublimeText.AutoSize = true;
+            this.checkBoxSublimeText.Location = new System.Drawing.Point(10, 110);
+            this.checkBoxSublimeText.Name = "checkBoxSublimeText";
+            this.checkBoxSublimeText.Size = new System.Drawing.Size(91, 17);
+            this.checkBoxSublimeText.TabIndex = 5;
+            this.checkBoxSublimeText.Text = "Sublime Text";
+            this.checkBoxSublimeText.UseVisualStyleBackColor = true;
+            //
+            // checkBoxLibreOffice
+            //
+            this.checkBoxLibreOffice.AutoSize = true;
+            this.checkBoxLibreOffice.Location = new System.Drawing.Point(10, 135);
+            this.checkBoxLibreOffice.Name = "checkBoxLibreOffice";
+            this.checkBoxLibreOffice.Size = new System.Drawing.Size(88, 17);
+            this.checkBoxLibreOffice.TabIndex = 6;
+            this.checkBoxLibreOffice.Text = "LibreOffice";
+            this.checkBoxLibreOffice.UseVisualStyleBackColor = true;
             //
             // MainForm
             //
             this.ClientSize = new System.Drawing.Size(1000, 600);
-            this.Controls.Add(this.panelSoftware);
+            this.Controls.Add(this.panelInstallation);
             this.Controls.Add(this.panelBSOD);
             this.Controls.Add(this.panelVirus);
             this.Controls.Add(this.panelGeneral);
@@ -293,7 +356,8 @@
             this.panelGeneral.ResumeLayout(false);
             this.panelBSOD.ResumeLayout(false);
             this.panelVirus.ResumeLayout(false);
-            this.panelSoftware.ResumeLayout(false);
+            this.panelInstallation.ResumeLayout(false);
+            this.panelInstallation.PerformLayout();
             this.ResumeLayout(false);
         }
     }
