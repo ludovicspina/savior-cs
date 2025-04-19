@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Windows.Forms;
@@ -48,10 +49,7 @@ namespace Savior.UI
             LoadSystemInfo();
             RefreshTemperatures();
 
-            var timer = new System.Windows.Forms.Timer
-            {
-                Interval = 5000
-            };
+            var timer = new System.Windows.Forms.Timer { Interval = 5000 };
             timer.Tick += (s, ev) => RefreshTemperatures();
             timer.Start();
         }
@@ -103,6 +101,7 @@ namespace Savior.UI
             panelBSOD.Visible = false;
             panelVirus.Visible = false;
             panelInstallation.Visible = false;
+            panelWindows.Visible = false;
         }
 
         private void BtnBSOD_Click(object sender, EventArgs e)
@@ -111,6 +110,7 @@ namespace Savior.UI
             panelBSOD.Visible = true;
             panelVirus.Visible = false;
             panelInstallation.Visible = false;
+            panelWindows.Visible = false;
 
             listViewBSOD.Items.Clear();
             var events = _bsodService.GetRecentBsodEvents();
@@ -139,6 +139,7 @@ namespace Savior.UI
             panelBSOD.Visible = false;
             panelVirus.Visible = true;
             panelInstallation.Visible = false;
+            panelWindows.Visible = false;
 
             listViewVirus.Items.Clear();
             var processes = _processScanner.ScanProcesses();
@@ -161,6 +162,133 @@ namespace Savior.UI
             panelBSOD.Visible = false;
             panelVirus.Visible = false;
             panelInstallation.Visible = true;
+            panelWindows.Visible = false;
+        }
+
+        private void BtnWindows_Click(object sender, EventArgs e)
+        {
+            panelGeneral.Visible = false;
+            panelBSOD.Visible = false;
+            panelVirus.Visible = false;
+            panelInstallation.Visible = false;
+            panelWindows.Visible = true;
+
+            CheckWindowsActivationStatus();
+        }
+
+private void CheckWindowsActivationStatus()
+{
+    try
+    {
+        string version = Environment.OSVersion.VersionString;
+        string activationStatus = "❓ Impossible de déterminer l’état d’activation";
+        string licenseType = "❓ Inconnu";
+        string productKeyLast5 = "❓";
+
+        // PowerShell pour vérifier l’activation
+        var checkActivation = new ProcessStartInfo
+        {
+            FileName = "powershell",
+            Arguments = "-Command \"(Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1).LicenseStatus\"",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        string result;
+        using (var proc = Process.Start(checkActivation))
+        {
+            result = proc.StandardOutput.ReadToEnd();
+            proc.WaitForExit();
+        }
+
+        result = result.Trim();
+        switch (result)
+        {
+            case "1":
+                activationStatus = "✅ Windows est activé.";
+                break;
+            case "0":
+                activationStatus = "❌ Windows n’est pas activé.";
+                break;
+            default:
+                activationStatus = "❓ Statut inconnu.";
+                break;
+        }
+
+        // Récupérer le type de licence + les 5 derniers caractères de la clé
+        var licenseInfo = new ProcessStartInfo
+        {
+            FileName = "powershell",
+            Arguments = "-Command \"Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1 LicenseFamily,PartialProductKey\"",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        string licenseOutput;
+        using (var proc = Process.Start(licenseInfo))
+        {
+            licenseOutput = proc.StandardOutput.ReadToEnd();
+            proc.WaitForExit();
+        }
+
+        foreach (var line in licenseOutput.Split('\n'))
+        {
+            if (line.Contains("OEM"))
+                licenseType = "OEM";
+            else if (line.Contains("Retail"))
+                licenseType = "Retail";
+            else if (line.Contains("Volume"))
+                licenseType = "Volume";
+
+            if (line.Trim().Length == 5)
+                productKeyLast5 = line.Trim();
+        }
+
+        labelWindowsStatus.Text =
+            $"{activationStatus}\n" +
+            $"Version : {version}\n" +
+            $"Type de licence : {licenseType}\n" +
+            $"Clé produit : *****-*****-*****-*****-{productKeyLast5}";
+    }
+    catch (Exception ex)
+    {
+        labelWindowsStatus.Text = $"❌ Erreur lors de la vérification : {ex.Message}";
+    }
+}
+
+
+
+        private void BtnActivateWindows_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Chemin relatif vers le script MAS_AIO.cmd
+                string masPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts", "MAS_AIO.cmd");
+
+                // Vérifier si le fichier existe
+                if (!File.Exists(masPath))
+                {
+                    MessageBox.Show("Le fichier MAS_AIO.cmd est introuvable. Chemin : " + masPath);
+                    return;
+                }
+
+                // Configurer le processus pour exécuter le script
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = masPath,
+                    UseShellExecute = true,
+                    Verb = "runas" // Exécuter en tant qu'administrateur
+                };
+
+                // Exécuter le processus
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
         }
 
         private void BtnKillProcess_Click(object sender, EventArgs e)
@@ -172,7 +300,7 @@ namespace Savior.UI
                 {
                     _processScanner.KillProcess(proc.Pid);
                     MessageBox.Show($"Processus {proc.Name} (PID: {proc.Pid}) terminé.");
-                    BtnVirus_Click(null, null); // Refresh
+                    BtnVirus_Click(null, null);
                 }
             }
         }
@@ -184,49 +312,41 @@ namespace Savior.UI
                 string arguments = "-NoExit -Command \"";
 
                 if (checkBoxVLC.Checked)
-                {
-                    arguments += "winget install --id VideoLAN.VLC -e; ";
-                }
-
+                    arguments +=
+                        "winget install --id VideoLAN.VLC -e --silent --accept-package-agreements --accept-source-agreements;\n";
                 if (checkBox7ZIP.Checked)
-                {
                     arguments += "winget install --id 7zip.7zip -e; ";
-                }
-
                 if (checkBoxChrome.Checked)
-                {
                     arguments += "winget install --id Google.Chrome -e; ";
-                }
-
                 if (checkBoxAdobeReader.Checked)
-                {
                     arguments += "winget install --id Adobe.Acrobat.Reader.64-bit -e; ";
-                }
-
                 if (checkBoxSublimeText.Checked)
-                {
                     arguments += "winget install --id SublimeHQ.SublimeText -e; ";
-                }
-
                 if (checkBoxLibreOffice.Checked)
-                {
                     arguments += "winget install --id TheDocumentFoundation.LibreOffice -e; ";
-                }
+                if (checkBoxKaspersky.Checked)
+                    arguments += "Start-Process 'https://www.kaspersky.fr/downloads/standard'; ";
+                if (checkBoxBitdefender.Checked)
+                    arguments += "winget install --id Bitdefender.Bitdefender -e; ";
+                if (checkBoxSteam.Checked)
+                    arguments += "winget install --id Valve.Steam -e; ";
+                if (checkBoxDiscord.Checked)
+                    arguments += "winget install --id Discord.Discord -e; ";
 
-                arguments = arguments.TrimEnd(' ', ';'); // Remove the trailing semicolon and space
+                arguments = arguments.TrimEnd(' ', ';');
 
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "powershell",
                     Arguments = arguments,
                     UseShellExecute = true,
-                    Verb = "runas" // Pour exécuter en tant qu'administrateur
+                    Verb = "runas"
                 };
                 Process.Start(psi);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de l'ouverture de PowerShell: {ex.Message}");
+                MessageBox.Show($"Erreur PowerShell: {ex.Message}");
             }
         }
 
