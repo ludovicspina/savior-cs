@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Windows.Forms;
 using Savior.Models;
 using Savior.Services;
+using System.Threading.Tasks;
 
 namespace Savior.UI
 {
@@ -16,6 +17,11 @@ namespace Savior.UI
         private SystemInfoService _systemInfo;
         private BsodEventService _bsodService;
         private ProcessScannerService _processScanner;
+
+        private string _windowsActivationStatus;
+        private string _windowsVersion;
+        private string _windowsLicenseType;
+        private string _windowsProductKeyLast5;
 
         public MainForm()
         {
@@ -40,7 +46,7 @@ namespace Savior.UI
             this.Load += MainForm_Load;
         }
 
-        private void MainForm_Load(object? sender, EventArgs e)
+        private async void MainForm_Load(object? sender, EventArgs e)
         {
             if (IsInDesignMode())
                 return;
@@ -49,9 +55,22 @@ namespace Savior.UI
             LoadSystemInfo();
             RefreshTemperatures();
 
+            await CheckWindowsActivationStatusAsync();
+
             var timer = new System.Windows.Forms.Timer { Interval = 5000 };
             timer.Tick += (s, ev) => RefreshTemperatures();
             timer.Start();
+        }
+
+        private void ShowPanel(Panel panel)
+        {
+            panelGeneral.Visible = false;
+            panelBSOD.Visible = false;
+            panelVirus.Visible = false;
+            panelInstallation.Visible = false;
+            panelWindows.Visible = false;
+
+            panel.Visible = true;
         }
 
         private void InitializeServices()
@@ -93,24 +112,21 @@ namespace Savior.UI
             labelCpuTemp.Text = cpuTemps.Count > 0
                 ? string.Join("  ", cpuTemps.Select(t => $"{t.Key}: {t.Value} °C"))
                 : "Température CPU non disponible";
+
+            // Mettre à jour la barre d'état
+            toolStripStatusLabelCpuTemp.Text = labelCpuTemp.Text;
+            toolStripStatusLabelGpuTemp.Text = labelGpuTemp.Text;
+            toolStripStatusLabelWindows.Text = _windowsActivationStatus;
         }
 
         private void BtnGeneral_Click(object sender, EventArgs e)
         {
-            panelGeneral.Visible = true;
-            panelBSOD.Visible = false;
-            panelVirus.Visible = false;
-            panelInstallation.Visible = false;
-            panelWindows.Visible = false;
+            ShowPanel(panelGeneral);
         }
 
         private void BtnBSOD_Click(object sender, EventArgs e)
         {
-            panelGeneral.Visible = false;
-            panelBSOD.Visible = true;
-            panelVirus.Visible = false;
-            panelInstallation.Visible = false;
-            panelWindows.Visible = false;
+            ShowPanel(panelBSOD);
 
             listViewBSOD.Items.Clear();
             var events = _bsodService.GetRecentBsodEvents();
@@ -135,11 +151,7 @@ namespace Savior.UI
 
         private void BtnVirus_Click(object sender, EventArgs e)
         {
-            panelGeneral.Visible = false;
-            panelBSOD.Visible = false;
-            panelVirus.Visible = true;
-            panelInstallation.Visible = false;
-            panelWindows.Visible = false;
+            ShowPanel(panelVirus);
 
             listViewVirus.Items.Clear();
             var processes = _processScanner.ScanProcesses();
@@ -158,107 +170,101 @@ namespace Savior.UI
 
         private void BtnInstallation_Click(object sender, EventArgs e)
         {
-            panelGeneral.Visible = false;
-            panelBSOD.Visible = false;
-            panelVirus.Visible = false;
-            panelInstallation.Visible = true;
-            panelWindows.Visible = false;
+            ShowPanel(panelInstallation);
         }
 
         private void BtnWindows_Click(object sender, EventArgs e)
         {
-            panelGeneral.Visible = false;
-            panelBSOD.Visible = false;
-            panelVirus.Visible = false;
-            panelInstallation.Visible = false;
-            panelWindows.Visible = true;
-
-            CheckWindowsActivationStatus();
+            ShowPanel(panelWindows);
+            labelWindowsStatus.Text = $"{_windowsActivationStatus}\n" +
+                                      $"Version : {_windowsVersion}\n" +
+                                      $"Type de licence : {_windowsLicenseType}\n" +
+                                      $"Clé produit : *****-*****-*****-*****-{_windowsProductKeyLast5}";
         }
 
-private void CheckWindowsActivationStatus()
-{
-    try
-    {
-        string version = Environment.OSVersion.VersionString;
-        string activationStatus = "❓ Impossible de déterminer l’état d’activation";
-        string licenseType = "❓ Inconnu";
-        string productKeyLast5 = "❓";
-
-        // PowerShell pour vérifier l’activation
-        var checkActivation = new ProcessStartInfo
+        private async Task CheckWindowsActivationStatusAsync()
         {
-            FileName = "powershell",
-            Arguments = "-Command \"(Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1).LicenseStatus\"",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
+            try
+            {
+                string version = Environment.OSVersion.VersionString;
+                string activationStatus = "❓ Impossible de déterminer l’état d’activation";
+                string licenseType = "❓ Inconnu";
+                string productKeyLast5 = "❓";
 
-        string result;
-        using (var proc = Process.Start(checkActivation))
-        {
-            result = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
+                // PowerShell pour vérifier l’activation
+                var checkActivation = new ProcessStartInfo
+                {
+                    FileName = "powershell",
+                    Arguments =
+                        "-Command \"(Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1).LicenseStatus\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                string result = await RunProcessAsync(checkActivation);
+
+                result = result.Trim();
+                switch (result)
+                {
+                    case "1":
+                        activationStatus = "✅ Windows est activé.";
+                        break;
+                    case "0":
+                        activationStatus = "❌ Windows n’est pas activé.";
+                        break;
+                    default:
+                        activationStatus = "❓ Statut inconnu.";
+                        break;
+                }
+
+                // Récupérer le type de licence + les 5 derniers caractères de la clé
+                var licenseInfo = new ProcessStartInfo
+                {
+                    FileName = "powershell",
+                    Arguments =
+                        "-Command \"Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1 LicenseFamily,PartialProductKey\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                string licenseOutput = await RunProcessAsync(licenseInfo);
+
+                foreach (var line in licenseOutput.Split('\n'))
+                {
+                    if (line.Contains("OEM"))
+                        licenseType = "OEM";
+                    else if (line.Contains("Retail"))
+                        licenseType = "Retail";
+                    else if (line.Contains("Volume"))
+                        licenseType = "Volume";
+
+                    if (line.Trim().Length == 5)
+                        productKeyLast5 = line.Trim();
+                }
+
+                _windowsActivationStatus = activationStatus;
+                _windowsVersion = version;
+                _windowsLicenseType = licenseType;
+                _windowsProductKeyLast5 = productKeyLast5;
+            }
+            catch (Exception ex)
+            {
+                _windowsActivationStatus = $"❌ Erreur lors de la vérification : {ex.Message}";
+            }
         }
 
-        result = result.Trim();
-        switch (result)
+        private async Task<string> RunProcessAsync(ProcessStartInfo startInfo)
         {
-            case "1":
-                activationStatus = "✅ Windows est activé.";
-                break;
-            case "0":
-                activationStatus = "❌ Windows n’est pas activé.";
-                break;
-            default:
-                activationStatus = "❓ Statut inconnu.";
-                break;
+            using (var process = new Process { StartInfo = startInfo })
+            {
+                process.Start();
+                string output = await process.StandardOutput.ReadToEndAsync();
+                await process.WaitForExitAsync();
+                return output;
+            }
         }
-
-        // Récupérer le type de licence + les 5 derniers caractères de la clé
-        var licenseInfo = new ProcessStartInfo
-        {
-            FileName = "powershell",
-            Arguments = "-Command \"Get-CimInstance -Class SoftwareLicensingProduct | Where-Object { $_.PartialProductKey } | Select-Object -First 1 LicenseFamily,PartialProductKey\"",
-            RedirectStandardOutput = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        string licenseOutput;
-        using (var proc = Process.Start(licenseInfo))
-        {
-            licenseOutput = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
-        }
-
-        foreach (var line in licenseOutput.Split('\n'))
-        {
-            if (line.Contains("OEM"))
-                licenseType = "OEM";
-            else if (line.Contains("Retail"))
-                licenseType = "Retail";
-            else if (line.Contains("Volume"))
-                licenseType = "Volume";
-
-            if (line.Trim().Length == 5)
-                productKeyLast5 = line.Trim();
-        }
-
-        labelWindowsStatus.Text =
-            $"{activationStatus}\n" +
-            $"Version : {version}\n" +
-            $"Type de licence : {licenseType}\n" +
-            $"Clé produit : *****-*****-*****-*****-{productKeyLast5}";
-    }
-    catch (Exception ex)
-    {
-        labelWindowsStatus.Text = $"❌ Erreur lors de la vérification : {ex.Message}";
-    }
-}
-
-
 
         private void BtnActivateWindows_Click(object sender, EventArgs e)
         {

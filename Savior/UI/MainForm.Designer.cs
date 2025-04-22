@@ -37,436 +37,509 @@
         private System.Windows.Forms.Panel panelWindows;
         private System.Windows.Forms.Label labelWindowsStatus;
         private System.Windows.Forms.Button btnActivateWindows;
+        private System.Windows.Forms.GroupBox groupBoxSystemInfo;
+        private System.Windows.Forms.GroupBox groupBoxTemperatures;
+        private System.Windows.Forms.ProgressBar progressBarInstallation;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCpuTemp;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelGpuTemp;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelWindows;
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            sidebar = new System.Windows.Forms.Panel();
-            btnWindows = new System.Windows.Forms.Button();
-            btnInstallation = new System.Windows.Forms.Button();
-            btnVirus = new System.Windows.Forms.Button();
-            btnBSOD = new System.Windows.Forms.Button();
-            btnGeneral = new System.Windows.Forms.Button();
-            panelGeneral = new System.Windows.Forms.Panel();
-            labelCPUName = new System.Windows.Forms.Label();
-            labelCPUCores = new System.Windows.Forms.Label();
-            labelRAM = new System.Windows.Forms.Label();
-            labelDisk = new System.Windows.Forms.Label();
-            labelGPU = new System.Windows.Forms.Label();
-            labelCpuTemp = new System.Windows.Forms.Label();
-            labelGpuTemp = new System.Windows.Forms.Label();
-            panelBSOD = new System.Windows.Forms.Panel();
-            listViewBSOD = new System.Windows.Forms.ListView();
-            panelVirus = new System.Windows.Forms.Panel();
-            listViewVirus = new System.Windows.Forms.ListView();
-            btnKillProcess = new System.Windows.Forms.Button();
-            panelInstallation = new System.Windows.Forms.Panel();
-            checkBoxDiscord = new System.Windows.Forms.CheckBox();
-            checkBoxSteam = new System.Windows.Forms.CheckBox();
-            checkBoxBitdefender = new System.Windows.Forms.CheckBox();
-            checkBoxKaspersky = new System.Windows.Forms.CheckBox();
-            checkBoxLibreOffice = new System.Windows.Forms.CheckBox();
-            checkBoxSublimeText = new System.Windows.Forms.CheckBox();
-            checkBoxAdobeReader = new System.Windows.Forms.CheckBox();
-            checkBoxChrome = new System.Windows.Forms.CheckBox();
-            checkBox7ZIP = new System.Windows.Forms.CheckBox();
-            checkBoxVLC = new System.Windows.Forms.CheckBox();
-            btnOpenPowerShell = new System.Windows.Forms.Button();
-            panelWindows = new System.Windows.Forms.Panel();
-            labelWindowsStatus = new System.Windows.Forms.Label();
-            btnActivateWindows = new System.Windows.Forms.Button();
-            sidebar.SuspendLayout();
-            panelGeneral.SuspendLayout();
-            panelBSOD.SuspendLayout();
-            panelVirus.SuspendLayout();
-            panelInstallation.SuspendLayout();
-            panelWindows.SuspendLayout();
-            SuspendLayout();
-            // 
+            this.sidebar = new System.Windows.Forms.Panel();
+            this.btnWindows = new System.Windows.Forms.Button();
+            this.btnInstallation = new System.Windows.Forms.Button();
+            this.btnVirus = new System.Windows.Forms.Button();
+            this.btnBSOD = new System.Windows.Forms.Button();
+            this.btnGeneral = new System.Windows.Forms.Button();
+            this.panelGeneral = new System.Windows.Forms.Panel();
+            this.groupBoxSystemInfo = new System.Windows.Forms.GroupBox();
+            this.labelCPUName = new System.Windows.Forms.Label();
+            this.labelCPUCores = new System.Windows.Forms.Label();
+            this.labelRAM = new System.Windows.Forms.Label();
+            this.labelDisk = new System.Windows.Forms.Label();
+            this.labelGPU = new System.Windows.Forms.Label();
+            this.groupBoxTemperatures = new System.Windows.Forms.GroupBox();
+            this.labelCpuTemp = new System.Windows.Forms.Label();
+            this.labelGpuTemp = new System.Windows.Forms.Label();
+            this.panelBSOD = new System.Windows.Forms.Panel();
+            this.listViewBSOD = new System.Windows.Forms.ListView();
+            this.panelVirus = new System.Windows.Forms.Panel();
+            this.listViewVirus = new System.Windows.Forms.ListView();
+            this.btnKillProcess = new System.Windows.Forms.Button();
+            this.panelInstallation = new System.Windows.Forms.Panel();
+            this.progressBarInstallation = new System.Windows.Forms.ProgressBar();
+            this.checkBoxDiscord = new System.Windows.Forms.CheckBox();
+            this.checkBoxSteam = new System.Windows.Forms.CheckBox();
+            this.checkBoxBitdefender = new System.Windows.Forms.CheckBox();
+            this.checkBoxKaspersky = new System.Windows.Forms.CheckBox();
+            this.checkBoxLibreOffice = new System.Windows.Forms.CheckBox();
+            this.checkBoxSublimeText = new System.Windows.Forms.CheckBox();
+            this.checkBoxAdobeReader = new System.Windows.Forms.CheckBox();
+            this.checkBoxChrome = new System.Windows.Forms.CheckBox();
+            this.checkBox7ZIP = new System.Windows.Forms.CheckBox();
+            this.checkBoxVLC = new System.Windows.Forms.CheckBox();
+            this.btnOpenPowerShell = new System.Windows.Forms.Button();
+            this.panelWindows = new System.Windows.Forms.Panel();
+            this.labelWindowsStatus = new System.Windows.Forms.Label();
+            this.btnActivateWindows = new System.Windows.Forms.Button();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelCpuTemp = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelGpuTemp = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelWindows = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sidebar.SuspendLayout();
+            this.panelGeneral.SuspendLayout();
+            this.groupBoxSystemInfo.SuspendLayout();
+            this.groupBoxTemperatures.SuspendLayout();
+            this.panelBSOD.SuspendLayout();
+            this.panelVirus.SuspendLayout();
+            this.panelInstallation.SuspendLayout();
+            this.panelWindows.SuspendLayout();
+            this.statusStrip.SuspendLayout();
+            this.SuspendLayout();
+            //
             // sidebar
-            // 
-            sidebar.BackColor = System.Drawing.Color.Gainsboro;
-            sidebar.Controls.Add(btnWindows);
-            sidebar.Controls.Add(btnInstallation);
-            sidebar.Controls.Add(btnVirus);
-            sidebar.Controls.Add(btnBSOD);
-            sidebar.Controls.Add(btnGeneral);
-            sidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            sidebar.Location = new System.Drawing.Point(0, 0);
-            sidebar.Name = "sidebar";
-            sidebar.Size = new System.Drawing.Size(150, 600);
-            sidebar.TabIndex = 3;
-            // 
+            //
+            this.sidebar.BackColor = System.Drawing.Color.Gainsboro;
+            this.sidebar.Controls.Add(this.btnWindows);
+            this.sidebar.Controls.Add(this.btnInstallation);
+            this.sidebar.Controls.Add(this.btnVirus);
+            this.sidebar.Controls.Add(this.btnBSOD);
+            this.sidebar.Controls.Add(this.btnGeneral);
+            this.sidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidebar.Location = new System.Drawing.Point(0, 0);
+            this.sidebar.Name = "sidebar";
+            this.sidebar.Size = new System.Drawing.Size(150, 625);
+            this.sidebar.TabIndex = 3;
+            //
             // btnWindows
-            // 
-            btnWindows.Dock = System.Windows.Forms.DockStyle.Top;
-            btnWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnWindows.ForeColor = System.Drawing.Color.Black;
-            btnWindows.Location = new System.Drawing.Point(0, 200);
-            btnWindows.Name = "btnWindows";
-            btnWindows.Size = new System.Drawing.Size(150, 50);
-            btnWindows.TabIndex = 4;
-            btnWindows.Text = "Windows";
-            btnWindows.UseVisualStyleBackColor = true;
-            btnWindows.Click += BtnWindows_Click;
-            // 
+            //
+            this.btnWindows.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWindows.ForeColor = System.Drawing.Color.Black;
+            this.btnWindows.Location = new System.Drawing.Point(0, 200);
+            this.btnWindows.Name = "btnWindows";
+            this.btnWindows.Size = new System.Drawing.Size(150, 50);
+            this.btnWindows.TabIndex = 4;
+            this.btnWindows.Text = "Windows";
+            this.btnWindows.UseVisualStyleBackColor = true;
+            this.btnWindows.Click += new System.EventHandler(this.BtnWindows_Click);
+            //
             // btnInstallation
-            // 
-            btnInstallation.Dock = System.Windows.Forms.DockStyle.Top;
-            btnInstallation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnInstallation.ForeColor = System.Drawing.Color.Black;
-            btnInstallation.Location = new System.Drawing.Point(0, 150);
-            btnInstallation.Name = "btnInstallation";
-            btnInstallation.Size = new System.Drawing.Size(150, 50);
-            btnInstallation.TabIndex = 3;
-            btnInstallation.Text = "Installation";
-            btnInstallation.UseVisualStyleBackColor = true;
-            btnInstallation.Click += BtnInstallation_Click;
-            // 
+            //
+            this.btnInstallation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnInstallation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInstallation.ForeColor = System.Drawing.Color.Black;
+            this.btnInstallation.Location = new System.Drawing.Point(0, 150);
+            this.btnInstallation.Name = "btnInstallation";
+            this.btnInstallation.Size = new System.Drawing.Size(150, 50);
+            this.btnInstallation.TabIndex = 3;
+            this.btnInstallation.Text = "Installation";
+            this.btnInstallation.UseVisualStyleBackColor = true;
+            this.btnInstallation.Click += new System.EventHandler(this.BtnInstallation_Click);
+            //
             // btnVirus
-            // 
-            btnVirus.Dock = System.Windows.Forms.DockStyle.Top;
-            btnVirus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnVirus.ForeColor = System.Drawing.Color.Black;
-            btnVirus.Location = new System.Drawing.Point(0, 100);
-            btnVirus.Name = "btnVirus";
-            btnVirus.Size = new System.Drawing.Size(150, 50);
-            btnVirus.TabIndex = 2;
-            btnVirus.Text = "Virus";
-            btnVirus.UseVisualStyleBackColor = true;
-            btnVirus.Click += BtnVirus_Click;
-            // 
+            //
+            this.btnVirus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVirus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVirus.ForeColor = System.Drawing.Color.Black;
+            this.btnVirus.Location = new System.Drawing.Point(0, 100);
+            this.btnVirus.Name = "btnVirus";
+            this.btnVirus.Size = new System.Drawing.Size(150, 50);
+            this.btnVirus.TabIndex = 2;
+            this.btnVirus.Text = "Virus";
+            this.btnVirus.UseVisualStyleBackColor = true;
+            this.btnVirus.Click += new System.EventHandler(this.BtnVirus_Click);
+            //
             // btnBSOD
-            // 
-            btnBSOD.Dock = System.Windows.Forms.DockStyle.Top;
-            btnBSOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnBSOD.ForeColor = System.Drawing.Color.Black;
-            btnBSOD.Location = new System.Drawing.Point(0, 50);
-            btnBSOD.Name = "btnBSOD";
-            btnBSOD.Size = new System.Drawing.Size(150, 50);
-            btnBSOD.TabIndex = 1;
-            btnBSOD.Text = "BSOD";
-            btnBSOD.UseVisualStyleBackColor = true;
-            btnBSOD.Click += BtnBSOD_Click;
-            // 
+            //
+            this.btnBSOD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBSOD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBSOD.ForeColor = System.Drawing.Color.Black;
+            this.btnBSOD.Location = new System.Drawing.Point(0, 50);
+            this.btnBSOD.Name = "btnBSOD";
+            this.btnBSOD.Size = new System.Drawing.Size(150, 50);
+            this.btnBSOD.TabIndex = 1;
+            this.btnBSOD.Text = "BSOD";
+            this.btnBSOD.UseVisualStyleBackColor = true;
+            this.btnBSOD.Click += new System.EventHandler(this.BtnBSOD_Click);
+            //
             // btnGeneral
-            // 
-            btnGeneral.Dock = System.Windows.Forms.DockStyle.Top;
-            btnGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnGeneral.ForeColor = System.Drawing.Color.Black;
-            btnGeneral.Location = new System.Drawing.Point(0, 0);
-            btnGeneral.Name = "btnGeneral";
-            btnGeneral.Size = new System.Drawing.Size(150, 50);
-            btnGeneral.TabIndex = 0;
-            btnGeneral.Text = "Général";
-            btnGeneral.UseVisualStyleBackColor = true;
-            btnGeneral.Click += BtnGeneral_Click;
-            // 
+            //
+            this.btnGeneral.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGeneral.ForeColor = System.Drawing.Color.Black;
+            this.btnGeneral.Location = new System.Drawing.Point(0, 0);
+            this.btnGeneral.Name = "btnGeneral";
+            this.btnGeneral.Size = new System.Drawing.Size(150, 50);
+            this.btnGeneral.TabIndex = 0;
+            this.btnGeneral.Text = "Général";
+            this.btnGeneral.UseVisualStyleBackColor = true;
+            this.btnGeneral.Click += new System.EventHandler(this.BtnGeneral_Click);
+            //
             // panelGeneral
-            // 
-            panelGeneral.BackColor = System.Drawing.Color.White;
-            panelGeneral.Controls.Add(labelCPUName);
-            panelGeneral.Controls.Add(labelCPUCores);
-            panelGeneral.Controls.Add(labelRAM);
-            panelGeneral.Controls.Add(labelDisk);
-            panelGeneral.Controls.Add(labelGPU);
-            panelGeneral.Controls.Add(labelCpuTemp);
-            panelGeneral.Controls.Add(labelGpuTemp);
-            panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelGeneral.Location = new System.Drawing.Point(150, 0);
-            panelGeneral.Name = "panelGeneral";
-            panelGeneral.Size = new System.Drawing.Size(850, 600);
-            panelGeneral.TabIndex = 0;
-            // 
+            //
+            this.panelGeneral.BackColor = System.Drawing.Color.White;
+            this.panelGeneral.Controls.Add(this.groupBoxSystemInfo);
+            this.panelGeneral.Controls.Add(this.groupBoxTemperatures);
+            this.panelGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelGeneral.Location = new System.Drawing.Point(150, 0);
+            this.panelGeneral.Name = "panelGeneral";
+            this.panelGeneral.Size = new System.Drawing.Size(850, 600);
+            this.panelGeneral.TabIndex = 0;
+            //
+            // groupBoxSystemInfo
+            //
+            this.groupBoxSystemInfo.Controls.Add(this.labelCPUName);
+            this.groupBoxSystemInfo.Controls.Add(this.labelCPUCores);
+            this.groupBoxSystemInfo.Controls.Add(this.labelRAM);
+            this.groupBoxSystemInfo.Controls.Add(this.labelDisk);
+            this.groupBoxSystemInfo.Controls.Add(this.labelGPU);
+            this.groupBoxSystemInfo.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxSystemInfo.Name = "groupBoxSystemInfo";
+            this.groupBoxSystemInfo.Size = new System.Drawing.Size(810, 200);
+            this.groupBoxSystemInfo.TabIndex = 0;
+            this.groupBoxSystemInfo.TabStop = false;
+            this.groupBoxSystemInfo.Text = "Informations Système";
+            //
             // labelCPUName
-            // 
-            labelCPUName.Location = new System.Drawing.Point(160, 20);
-            labelCPUName.Name = "labelCPUName";
-            labelCPUName.Size = new System.Drawing.Size(800, 23);
-            labelCPUName.TabIndex = 0;
-            // 
+            //
+            this.labelCPUName.Location = new System.Drawing.Point(10, 30);
+            this.labelCPUName.Name = "labelCPUName";
+            this.labelCPUName.Size = new System.Drawing.Size(790, 23);
+            this.labelCPUName.TabIndex = 0;
+            //
             // labelCPUCores
-            // 
-            labelCPUCores.Location = new System.Drawing.Point(160, 50);
-            labelCPUCores.Name = "labelCPUCores";
-            labelCPUCores.Size = new System.Drawing.Size(800, 23);
-            labelCPUCores.TabIndex = 1;
-            // 
+            //
+            this.labelCPUCores.Location = new System.Drawing.Point(10, 60);
+            this.labelCPUCores.Name = "labelCPUCores";
+            this.labelCPUCores.Size = new System.Drawing.Size(790, 23);
+            this.labelCPUCores.TabIndex = 1;
+            //
             // labelRAM
-            // 
-            labelRAM.Location = new System.Drawing.Point(160, 80);
-            labelRAM.Name = "labelRAM";
-            labelRAM.Size = new System.Drawing.Size(800, 23);
-            labelRAM.TabIndex = 2;
-            // 
+            //
+            this.labelRAM.Location = new System.Drawing.Point(10, 90);
+            this.labelRAM.Name = "labelRAM";
+            this.labelRAM.Size = new System.Drawing.Size(790, 23);
+            this.labelRAM.TabIndex = 2;
+            //
             // labelDisk
-            // 
-            labelDisk.Location = new System.Drawing.Point(160, 110);
-            labelDisk.Name = "labelDisk";
-            labelDisk.Size = new System.Drawing.Size(800, 100);
-            labelDisk.TabIndex = 3;
-            // 
+            //
+            this.labelDisk.Location = new System.Drawing.Point(10, 120);
+            this.labelDisk.Name = "labelDisk";
+            this.labelDisk.Size = new System.Drawing.Size(790, 100);
+            this.labelDisk.TabIndex = 3;
+            //
             // labelGPU
-            // 
-            labelGPU.Location = new System.Drawing.Point(160, 210);
-            labelGPU.Name = "labelGPU";
-            labelGPU.Size = new System.Drawing.Size(800, 23);
-            labelGPU.TabIndex = 4;
-            // 
+            //
+            this.labelGPU.Location = new System.Drawing.Point(10, 150);
+            this.labelGPU.Name = "labelGPU";
+            this.labelGPU.Size = new System.Drawing.Size(790, 23);
+            this.labelGPU.TabIndex = 4;
+            //
+            // groupBoxTemperatures
+            //
+            this.groupBoxTemperatures.Controls.Add(this.labelCpuTemp);
+            this.groupBoxTemperatures.Controls.Add(this.labelGpuTemp);
+            this.groupBoxTemperatures.Location = new System.Drawing.Point(20, 230);
+            this.groupBoxTemperatures.Name = "groupBoxTemperatures";
+            this.groupBoxTemperatures.Size = new System.Drawing.Size(810, 100);
+            this.groupBoxTemperatures.TabIndex = 1;
+            this.groupBoxTemperatures.TabStop = false;
+            this.groupBoxTemperatures.Text = "Températures";
+            //
             // labelCpuTemp
-            // 
-            labelCpuTemp.Location = new System.Drawing.Point(160, 250);
-            labelCpuTemp.Name = "labelCpuTemp";
-            labelCpuTemp.Size = new System.Drawing.Size(800, 23);
-            labelCpuTemp.TabIndex = 5;
-            // 
+            //
+            this.labelCpuTemp.Location = new System.Drawing.Point(10, 30);
+            this.labelCpuTemp.Name = "labelCpuTemp";
+            this.labelCpuTemp.Size = new System.Drawing.Size(790, 23);
+            this.labelCpuTemp.TabIndex = 5;
+            //
             // labelGpuTemp
-            // 
-            labelGpuTemp.Location = new System.Drawing.Point(160, 280);
-            labelGpuTemp.Name = "labelGpuTemp";
-            labelGpuTemp.Size = new System.Drawing.Size(800, 23);
-            labelGpuTemp.TabIndex = 6;
-            // 
+            //
+            this.labelGpuTemp.Location = new System.Drawing.Point(10, 60);
+            this.labelGpuTemp.Name = "labelGpuTemp";
+            this.labelGpuTemp.Size = new System.Drawing.Size(790, 23);
+            this.labelGpuTemp.TabIndex = 6;
+            //
             // panelBSOD
-            // 
-            panelBSOD.BackColor = System.Drawing.Color.White;
-            panelBSOD.Controls.Add(listViewBSOD);
-            panelBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelBSOD.Location = new System.Drawing.Point(150, 0);
-            panelBSOD.Name = "panelBSOD";
-            panelBSOD.Size = new System.Drawing.Size(850, 600);
-            panelBSOD.TabIndex = 1;
-            panelBSOD.Visible = false;
-            // 
+            //
+            this.panelBSOD.BackColor = System.Drawing.Color.White;
+            this.panelBSOD.Controls.Add(this.listViewBSOD);
+            this.panelBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBSOD.Location = new System.Drawing.Point(150, 0);
+            this.panelBSOD.Name = "panelBSOD";
+            this.panelBSOD.Size = new System.Drawing.Size(850, 600);
+            this.panelBSOD.TabIndex = 1;
+            this.panelBSOD.Visible = false;
+            //
             // listViewBSOD
-            // 
-            listViewBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewBSOD.FullRowSelect = true;
-            listViewBSOD.GridLines = true;
-            listViewBSOD.Location = new System.Drawing.Point(0, 0);
-            listViewBSOD.Name = "listViewBSOD";
-            listViewBSOD.Size = new System.Drawing.Size(850, 600);
-            listViewBSOD.TabIndex = 0;
-            listViewBSOD.UseCompatibleStateImageBehavior = false;
-            listViewBSOD.View = System.Windows.Forms.View.Details;
-            // 
+            //
+            this.listViewBSOD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewBSOD.FullRowSelect = true;
+            this.listViewBSOD.GridLines = true;
+            this.listViewBSOD.Location = new System.Drawing.Point(0, 0);
+            this.listViewBSOD.Name = "listViewBSOD";
+            this.listViewBSOD.Size = new System.Drawing.Size(850, 600);
+            this.listViewBSOD.TabIndex = 0;
+            this.listViewBSOD.UseCompatibleStateImageBehavior = false;
+            this.listViewBSOD.View = System.Windows.Forms.View.Details;
+            //
             // panelVirus
-            // 
-            panelVirus.BackColor = System.Drawing.Color.White;
-            panelVirus.Controls.Add(listViewVirus);
-            panelVirus.Controls.Add(btnKillProcess);
-            panelVirus.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelVirus.Location = new System.Drawing.Point(150, 0);
-            panelVirus.Name = "panelVirus";
-            panelVirus.Size = new System.Drawing.Size(850, 600);
-            panelVirus.TabIndex = 2;
-            panelVirus.Visible = false;
-            // 
+            //
+            this.panelVirus.BackColor = System.Drawing.Color.White;
+            this.panelVirus.Controls.Add(this.listViewVirus);
+            this.panelVirus.Controls.Add(this.btnKillProcess);
+            this.panelVirus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelVirus.Location = new System.Drawing.Point(150, 0);
+            this.panelVirus.Name = "panelVirus";
+            this.panelVirus.Size = new System.Drawing.Size(850, 600);
+            this.panelVirus.TabIndex = 2;
+            this.panelVirus.Visible = false;
+            //
             // listViewVirus
-            // 
-            listViewVirus.FullRowSelect = true;
-            listViewVirus.GridLines = true;
-            listViewVirus.Location = new System.Drawing.Point(0, 0);
-            listViewVirus.Name = "listViewVirus";
-            listViewVirus.Size = new System.Drawing.Size(850, 520);
-            listViewVirus.TabIndex = 0;
-            listViewVirus.UseCompatibleStateImageBehavior = false;
-            listViewVirus.View = System.Windows.Forms.View.Details;
-            // 
+            //
+            this.listViewVirus.FullRowSelect = true;
+            this.listViewVirus.GridLines = true;
+            this.listViewVirus.Location = new System.Drawing.Point(0, 0);
+            this.listViewVirus.Name = "listViewVirus";
+            this.listViewVirus.Size = new System.Drawing.Size(850, 520);
+            this.listViewVirus.TabIndex = 0;
+            this.listViewVirus.UseCompatibleStateImageBehavior = false;
+            this.listViewVirus.View = System.Windows.Forms.View.Details;
+            //
             // btnKillProcess
-            // 
-            btnKillProcess.Location = new System.Drawing.Point(10, 530);
-            btnKillProcess.Name = "btnKillProcess";
-            btnKillProcess.Size = new System.Drawing.Size(75, 23);
-            btnKillProcess.TabIndex = 1;
-            btnKillProcess.Text = "Terminer le processus";
-            btnKillProcess.UseVisualStyleBackColor = true;
-            btnKillProcess.Click += BtnKillProcess_Click;
-            // 
+            //
+            this.btnKillProcess.Location = new System.Drawing.Point(10, 530);
+            this.btnKillProcess.Name = "btnKillProcess";
+            this.btnKillProcess.Size = new System.Drawing.Size(150, 23);
+            this.btnKillProcess.TabIndex = 1;
+            this.btnKillProcess.Text = "Terminer le processus";
+            this.btnKillProcess.UseVisualStyleBackColor = true;
+            this.btnKillProcess.Click += new System.EventHandler(this.BtnKillProcess_Click);
+            //
             // panelInstallation
-            // 
-            panelInstallation.Controls.Add(checkBoxDiscord);
-            panelInstallation.Controls.Add(checkBoxSteam);
-            panelInstallation.Controls.Add(checkBoxBitdefender);
-            panelInstallation.Controls.Add(checkBoxKaspersky);
-            panelInstallation.Controls.Add(checkBoxLibreOffice);
-            panelInstallation.Controls.Add(checkBoxSublimeText);
-            panelInstallation.Controls.Add(checkBoxAdobeReader);
-            panelInstallation.Controls.Add(checkBoxChrome);
-            panelInstallation.Controls.Add(checkBox7ZIP);
-            panelInstallation.Controls.Add(checkBoxVLC);
-            panelInstallation.Controls.Add(btnOpenPowerShell);
-            panelInstallation.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelInstallation.Location = new System.Drawing.Point(150, 0);
-            panelInstallation.Name = "panelInstallation";
-            panelInstallation.Size = new System.Drawing.Size(850, 600);
-            panelInstallation.TabIndex = 3;
-            panelInstallation.Visible = false;
-            // 
+            //
+            this.panelInstallation.Controls.Add(this.progressBarInstallation);
+            this.panelInstallation.Controls.Add(this.checkBoxDiscord);
+            this.panelInstallation.Controls.Add(this.checkBoxSteam);
+            this.panelInstallation.Controls.Add(this.checkBoxBitdefender);
+            this.panelInstallation.Controls.Add(this.checkBoxKaspersky);
+            this.panelInstallation.Controls.Add(this.checkBoxLibreOffice);
+            this.panelInstallation.Controls.Add(this.checkBoxSublimeText);
+            this.panelInstallation.Controls.Add(this.checkBoxAdobeReader);
+            this.panelInstallation.Controls.Add(this.checkBoxChrome);
+            this.panelInstallation.Controls.Add(this.checkBox7ZIP);
+            this.panelInstallation.Controls.Add(this.checkBoxVLC);
+            this.panelInstallation.Controls.Add(this.btnOpenPowerShell);
+            this.panelInstallation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelInstallation.Location = new System.Drawing.Point(150, 0);
+            this.panelInstallation.Name = "panelInstallation";
+            this.panelInstallation.Size = new System.Drawing.Size(850, 600);
+            this.panelInstallation.TabIndex = 3;
+            this.panelInstallation.Visible = false;
+            //
+            // progressBarInstallation
+            //
+            this.progressBarInstallation.Location = new System.Drawing.Point(10, 290);
+            this.progressBarInstallation.Name = "progressBarInstallation";
+            this.progressBarInstallation.Size = new System.Drawing.Size(830, 23);
+            this.progressBarInstallation.TabIndex = 11;
+            //
             // checkBoxDiscord
-            // 
-            checkBoxDiscord.AutoSize = true;
-            checkBoxDiscord.Location = new System.Drawing.Point(10, 235);
-            checkBoxDiscord.Name = "checkBoxDiscord";
-            checkBoxDiscord.Size = new System.Drawing.Size(66, 19);
-            checkBoxDiscord.TabIndex = 10;
-            checkBoxDiscord.Text = "Discord";
-            checkBoxDiscord.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxDiscord.AutoSize = true;
+            this.checkBoxDiscord.Location = new System.Drawing.Point(10, 235);
+            this.checkBoxDiscord.Name = "checkBoxDiscord";
+            this.checkBoxDiscord.Size = new System.Drawing.Size(66, 19);
+            this.checkBoxDiscord.TabIndex = 10;
+            this.checkBoxDiscord.Text = "Discord";
+            this.checkBoxDiscord.UseVisualStyleBackColor = true;
+            //
             // checkBoxSteam
-            // 
-            checkBoxSteam.AutoSize = true;
-            checkBoxSteam.Location = new System.Drawing.Point(10, 210);
-            checkBoxSteam.Name = "checkBoxSteam";
-            checkBoxSteam.Size = new System.Drawing.Size(59, 19);
-            checkBoxSteam.TabIndex = 9;
-            checkBoxSteam.Text = "Steam";
-            checkBoxSteam.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxSteam.AutoSize = true;
+            this.checkBoxSteam.Location = new System.Drawing.Point(10, 210);
+            this.checkBoxSteam.Name = "checkBoxSteam";
+            this.checkBoxSteam.Size = new System.Drawing.Size(59, 19);
+            this.checkBoxSteam.TabIndex = 9;
+            this.checkBoxSteam.Text = "Steam";
+            this.checkBoxSteam.UseVisualStyleBackColor = true;
+            //
             // checkBoxBitdefender
-            // 
-            checkBoxBitdefender.AutoSize = true;
-            checkBoxBitdefender.Location = new System.Drawing.Point(10, 185);
-            checkBoxBitdefender.Name = "checkBoxBitdefender";
-            checkBoxBitdefender.Size = new System.Drawing.Size(87, 19);
-            checkBoxBitdefender.TabIndex = 8;
-            checkBoxBitdefender.Text = "Bitdefender";
-            checkBoxBitdefender.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxBitdefender.AutoSize = true;
+            this.checkBoxBitdefender.Location = new System.Drawing.Point(10, 185);
+            this.checkBoxBitdefender.Name = "checkBoxBitdefender";
+            this.checkBoxBitdefender.Size = new System.Drawing.Size(87, 19);
+            this.checkBoxBitdefender.TabIndex = 8;
+            this.checkBoxBitdefender.Text = "Bitdefender";
+            this.checkBoxBitdefender.UseVisualStyleBackColor = true;
+            //
             // checkBoxKaspersky
-            // 
-            checkBoxKaspersky.AutoSize = true;
-            checkBoxKaspersky.Location = new System.Drawing.Point(10, 160);
-            checkBoxKaspersky.Name = "checkBoxKaspersky";
-            checkBoxKaspersky.Size = new System.Drawing.Size(78, 19);
-            checkBoxKaspersky.TabIndex = 7;
-            checkBoxKaspersky.Text = "Kaspersky";
-            checkBoxKaspersky.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxKaspersky.AutoSize = true;
+            this.checkBoxKaspersky.Location = new System.Drawing.Point(10, 160);
+            this.checkBoxKaspersky.Name = "checkBoxKaspersky";
+            this.checkBoxKaspersky.Size = new System.Drawing.Size(78, 19);
+            this.checkBoxKaspersky.TabIndex = 7;
+            this.checkBoxKaspersky.Text = "Kaspersky";
+            this.checkBoxKaspersky.UseVisualStyleBackColor = true;
+            //
             // checkBoxLibreOffice
-            // 
-            checkBoxLibreOffice.AutoSize = true;
-            checkBoxLibreOffice.Location = new System.Drawing.Point(10, 135);
-            checkBoxLibreOffice.Name = "checkBoxLibreOffice";
-            checkBoxLibreOffice.Size = new System.Drawing.Size(84, 19);
-            checkBoxLibreOffice.TabIndex = 6;
-            checkBoxLibreOffice.Text = "LibreOffice";
-            checkBoxLibreOffice.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxLibreOffice.AutoSize = true;
+            this.checkBoxLibreOffice.Location = new System.Drawing.Point(10, 135);
+            this.checkBoxLibreOffice.Name = "checkBoxLibreOffice";
+            this.checkBoxLibreOffice.Size = new System.Drawing.Size(84, 19);
+            this.checkBoxLibreOffice.TabIndex = 6;
+            this.checkBoxLibreOffice.Text = "LibreOffice";
+            this.checkBoxLibreOffice.UseVisualStyleBackColor = true;
+            //
             // checkBoxSublimeText
-            // 
-            checkBoxSublimeText.AutoSize = true;
-            checkBoxSublimeText.Location = new System.Drawing.Point(10, 110);
-            checkBoxSublimeText.Name = "checkBoxSublimeText";
-            checkBoxSublimeText.Size = new System.Drawing.Size(93, 19);
-            checkBoxSublimeText.TabIndex = 5;
-            checkBoxSublimeText.Text = "Sublime Text";
-            checkBoxSublimeText.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxSublimeText.AutoSize = true;
+            this.checkBoxSublimeText.Location = new System.Drawing.Point(10, 110);
+            this.checkBoxSublimeText.Name = "checkBoxSublimeText";
+            this.checkBoxSublimeText.Size = new System.Drawing.Size(93, 19);
+            this.checkBoxSublimeText.TabIndex = 5;
+            this.checkBoxSublimeText.Text = "Sublime Text";
+            this.checkBoxSublimeText.UseVisualStyleBackColor = true;
+            //
             // checkBoxAdobeReader
-            // 
-            checkBoxAdobeReader.AutoSize = true;
-            checkBoxAdobeReader.Location = new System.Drawing.Point(10, 85);
-            checkBoxAdobeReader.Name = "checkBoxAdobeReader";
-            checkBoxAdobeReader.Size = new System.Drawing.Size(100, 19);
-            checkBoxAdobeReader.TabIndex = 4;
-            checkBoxAdobeReader.Text = "Adobe Reader";
-            checkBoxAdobeReader.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxAdobeReader.AutoSize = true;
+            this.checkBoxAdobeReader.Location = new System.Drawing.Point(10, 85);
+            this.checkBoxAdobeReader.Name = "checkBoxAdobeReader";
+            this.checkBoxAdobeReader.Size = new System.Drawing.Size(100, 19);
+            this.checkBoxAdobeReader.TabIndex = 4;
+            this.checkBoxAdobeReader.Text = "Adobe Reader";
+            this.checkBoxAdobeReader.UseVisualStyleBackColor = true;
+            //
             // checkBoxChrome
-            // 
-            checkBoxChrome.AutoSize = true;
-            checkBoxChrome.Location = new System.Drawing.Point(10, 60);
-            checkBoxChrome.Name = "checkBoxChrome";
-            checkBoxChrome.Size = new System.Drawing.Size(110, 19);
-            checkBoxChrome.TabIndex = 3;
-            checkBoxChrome.Text = "Google Chrome";
-            checkBoxChrome.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxChrome.AutoSize = true;
+            this.checkBoxChrome.Location = new System.Drawing.Point(10, 60);
+            this.checkBoxChrome.Name = "checkBoxChrome";
+            this.checkBoxChrome.Size = new System.Drawing.Size(110, 19);
+            this.checkBoxChrome.TabIndex = 3;
+            this.checkBoxChrome.Text = "Google Chrome";
+            this.checkBoxChrome.UseVisualStyleBackColor = true;
+            //
             // checkBox7ZIP
-            // 
-            checkBox7ZIP.AutoSize = true;
-            checkBox7ZIP.Location = new System.Drawing.Point(10, 35);
-            checkBox7ZIP.Name = "checkBox7ZIP";
-            checkBox7ZIP.Size = new System.Drawing.Size(49, 19);
-            checkBox7ZIP.TabIndex = 2;
-            checkBox7ZIP.Text = "7ZIP";
-            checkBox7ZIP.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBox7ZIP.AutoSize = true;
+            this.checkBox7ZIP.Location = new System.Drawing.Point(10, 35);
+            this.checkBox7ZIP.Name = "checkBox7ZIP";
+            this.checkBox7ZIP.Size = new System.Drawing.Size(49, 19);
+            this.checkBox7ZIP.TabIndex = 2;
+            this.checkBox7ZIP.Text = "7ZIP";
+            this.checkBox7ZIP.UseVisualStyleBackColor = true;
+            //
             // checkBoxVLC
-            // 
-            checkBoxVLC.AutoSize = true;
-            checkBoxVLC.Location = new System.Drawing.Point(10, 10);
-            checkBoxVLC.Name = "checkBoxVLC";
-            checkBoxVLC.Size = new System.Drawing.Size(47, 19);
-            checkBoxVLC.TabIndex = 1;
-            checkBoxVLC.Text = "VLC";
-            checkBoxVLC.UseVisualStyleBackColor = true;
-            // 
+            //
+            this.checkBoxVLC.AutoSize = true;
+            this.checkBoxVLC.Location = new System.Drawing.Point(10, 10);
+            this.checkBoxVLC.Name = "checkBoxVLC";
+            this.checkBoxVLC.Size = new System.Drawing.Size(47, 19);
+            this.checkBoxVLC.TabIndex = 1;
+            this.checkBoxVLC.Text = "VLC";
+            this.checkBoxVLC.UseVisualStyleBackColor = true;
+            //
             // btnOpenPowerShell
-            // 
-            btnOpenPowerShell.Location = new System.Drawing.Point(212, 23);
-            btnOpenPowerShell.Name = "btnOpenPowerShell";
-            btnOpenPowerShell.Size = new System.Drawing.Size(150, 50);
-            btnOpenPowerShell.TabIndex = 0;
-            btnOpenPowerShell.Text = "Installer";
-            btnOpenPowerShell.UseVisualStyleBackColor = true;
-            btnOpenPowerShell.Click += BtnOpenPowerShell_Click;
-            // 
+            //
+            this.btnOpenPowerShell.Location = new System.Drawing.Point(212, 23);
+            this.btnOpenPowerShell.Name = "btnOpenPowerShell";
+            this.btnOpenPowerShell.Size = new System.Drawing.Size(150, 50);
+            this.btnOpenPowerShell.TabIndex = 0;
+            this.btnOpenPowerShell.Text = "Installer";
+            this.btnOpenPowerShell.UseVisualStyleBackColor = true;
+            this.btnOpenPowerShell.Click += new System.EventHandler(this.BtnOpenPowerShell_Click);
+            //
             // panelWindows
-            // 
-            panelWindows.Controls.Add(labelWindowsStatus);
-            panelWindows.Controls.Add(btnActivateWindows);
-            panelWindows.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelWindows.Location = new System.Drawing.Point(150, 0);
-            panelWindows.Name = "panelWindows";
-            panelWindows.Size = new System.Drawing.Size(850, 600);
-            panelWindows.TabIndex = 4;
-            panelWindows.Visible = false;
-            // 
+            //
+            this.panelWindows.Controls.Add(this.labelWindowsStatus);
+            this.panelWindows.Controls.Add(this.btnActivateWindows);
+            this.panelWindows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelWindows.Location = new System.Drawing.Point(150, 0);
+            this.panelWindows.Name = "panelWindows";
+            this.panelWindows.Size = new System.Drawing.Size(850, 600);
+            this.panelWindows.TabIndex = 4;
+            this.panelWindows.Visible = false;
+            //
             // labelWindowsStatus
-            // 
-            labelWindowsStatus.Location = new System.Drawing.Point(17, 68);
-            labelWindowsStatus.Name = "labelWindowsStatus";
-            labelWindowsStatus.Size = new System.Drawing.Size(830, 182);
-            labelWindowsStatus.TabIndex = 0;
-            // 
+            //
+            this.labelWindowsStatus.Location = new System.Drawing.Point(17, 68);
+            this.labelWindowsStatus.Name = "labelWindowsStatus";
+            this.labelWindowsStatus.Size = new System.Drawing.Size(830, 182);
+            this.labelWindowsStatus.TabIndex = 0;
+            //
             // btnActivateWindows
-            // 
-            btnActivateWindows.Location = new System.Drawing.Point(10, 4);
-            btnActivateWindows.Name = "btnActivateWindows";
-            btnActivateWindows.Size = new System.Drawing.Size(150, 50);
-            btnActivateWindows.TabIndex = 1;
-            btnActivateWindows.Text = "Activer Windows";
-            btnActivateWindows.UseVisualStyleBackColor = true;
-            btnActivateWindows.Click += BtnActivateWindows_Click;
-            // 
+            //
+            this.btnActivateWindows.Location = new System.Drawing.Point(10, 4);
+            this.btnActivateWindows.Name = "btnActivateWindows";
+            this.btnActivateWindows.Size = new System.Drawing.Size(150, 50);
+            this.btnActivateWindows.TabIndex = 1;
+            this.btnActivateWindows.Text = "Activer Windows";
+            this.btnActivateWindows.UseVisualStyleBackColor = true;
+            this.btnActivateWindows.Click += new System.EventHandler(this.BtnActivateWindows_Click);
+            //
+            // statusStrip
+            //
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelCpuTemp,
+            this.toolStripStatusLabelGpuTemp,
+            this.toolStripStatusLabelWindows});
+            this.statusStrip.Location = new System.Drawing.Point(150, 600);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(850, 25);
+            this.statusStrip.TabIndex = 5;
+// toolStripStatusLabelCpuTemp
+this.toolStripStatusLabelCpuTemp.Name = "toolStripStatusLabelCpuTemp";
+this.toolStripStatusLabelCpuTemp.Size = new System.Drawing.Size(89, 20);
+this.toolStripStatusLabelCpuTemp.Text = "CPU Temp: ";
+
+// toolStripStatusLabelGpuTemp
+this.toolStripStatusLabelGpuTemp.Name = "toolStripStatusLabelGpuTemp";
+this.toolStripStatusLabelGpuTemp.Size = new System.Drawing.Size(89, 20);
+this.toolStripStatusLabelGpuTemp.Text = "GPU Temp: ";
+
+// toolStripStatusLabelWindows
+this.toolStripStatusLabelWindows.Name = "toolStripStatusLabelWindows";
+this.toolStripStatusLabelWindows.Size = new System.Drawing.Size(114, 20);
+this.toolStripStatusLabelWindows.Text = "Windows Status: ";
+
+            //
             // MainForm
-            // 
-            ClientSize = new System.Drawing.Size(1000, 600);
-            Controls.Add(panelWindows);
-            Controls.Add(panelInstallation);
-            Controls.Add(panelBSOD);
-            Controls.Add(panelVirus);
-            Controls.Add(panelGeneral);
-            Controls.Add(sidebar);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
-            MaximizeBox = false;
-            Text = "Savior - Maintenance Système";
-            Load += MainForm_Load;
-            sidebar.ResumeLayout(false);
-            panelGeneral.ResumeLayout(false);
-            panelBSOD.ResumeLayout(false);
-            panelVirus.ResumeLayout(false);
-            panelInstallation.ResumeLayout(false);
-            panelInstallation.PerformLayout();
-            panelWindows.ResumeLayout(false);
-            ResumeLayout(false);
+            //
+            this.ClientSize = new System.Drawing.Size(1000, 625);
+            this.Controls.Add(this.panelWindows);
+            this.Controls.Add(this.panelInstallation);
+            this.Controls.Add(this.panelBSOD);
+            this.Controls.Add(this.panelVirus);
+            this.Controls.Add(this.panelGeneral);
+            this.Controls.Add(this.sidebar);
+            this.Controls.Add(this.statusStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)resources.GetObject("$this.Icon"));
+            this.MaximizeBox = false;
+            this.Text = "Savior - Maintenance Système";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.sidebar.ResumeLayout(false);
+            this.panelGeneral.ResumeLayout(false);
+            this.groupBoxSystemInfo.ResumeLayout(false);
+            this.groupBoxTemperatures.ResumeLayout(false);
+            this.panelBSOD.ResumeLayout(false);
+            this.panelVirus.ResumeLayout(false);
+            this.panelInstallation.ResumeLayout(false);
+            this.panelInstallation.PerformLayout();
+            this.panelWindows.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
     }
 }
