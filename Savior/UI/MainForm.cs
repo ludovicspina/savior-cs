@@ -105,13 +105,13 @@ namespace Savior.UI
 
             var gpuTemps = _hardwareMonitor.GetGpuTemperatures();
             labelGpuTemp.Text = gpuTemps.Count > 0
-                ? string.Join("  ", gpuTemps.Select(t => $"{t.Key}: {t.Value} °C"))
-                : "Température GPU non disponible";
+                ? string.Join("  ", gpuTemps.Select(t => $"GPU: {t.Value} °C"))
+                : string.Join("GPU: ??? °C");
 
             var cpuTemps = _hardwareMonitor.GetCpuTemperatures();
             labelCpuTemp.Text = cpuTemps.Count > 0
-                ? string.Join("  ", cpuTemps.Select(t => $"{t.Key}: {t.Value} °C"))
-                : "Température CPU non disponible";
+                ? string.Join("  ", cpuTemps.Select(t => $"CPU: {t.Value} °C"))
+                : string.Join("CPU: ??? °C");
 
             // Mettre à jour la barre d'état
             toolStripStatusLabelCpuTemp.Text = labelCpuTemp.Text;

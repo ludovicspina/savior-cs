@@ -496,20 +496,21 @@
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(850, 25);
             this.statusStrip.TabIndex = 5;
-// toolStripStatusLabelCpuTemp
-this.toolStripStatusLabelCpuTemp.Name = "toolStripStatusLabelCpuTemp";
-this.toolStripStatusLabelCpuTemp.Size = new System.Drawing.Size(89, 20);
-this.toolStripStatusLabelCpuTemp.Text = "CPU Temp: ";
+            
+            // toolStripStatusLabelCpuTemp
+            this.toolStripStatusLabelCpuTemp.Name = "toolStripStatusLabelCpuTemp";
+            this.toolStripStatusLabelCpuTemp.Size = new System.Drawing.Size(89, 20);
+            this.toolStripStatusLabelCpuTemp.Text = "CPU Temp: ";
 
-// toolStripStatusLabelGpuTemp
-this.toolStripStatusLabelGpuTemp.Name = "toolStripStatusLabelGpuTemp";
-this.toolStripStatusLabelGpuTemp.Size = new System.Drawing.Size(89, 20);
-this.toolStripStatusLabelGpuTemp.Text = "GPU Temp: ";
+            // toolStripStatusLabelGpuTemp
+            this.toolStripStatusLabelGpuTemp.Name = "toolStripStatusLabelGpuTemp";
+            this.toolStripStatusLabelGpuTemp.Size = new System.Drawing.Size(89, 20);
+            this.toolStripStatusLabelGpuTemp.Text = "GPU Temp: ";
 
-// toolStripStatusLabelWindows
-this.toolStripStatusLabelWindows.Name = "toolStripStatusLabelWindows";
-this.toolStripStatusLabelWindows.Size = new System.Drawing.Size(114, 20);
-this.toolStripStatusLabelWindows.Text = "Windows Status: ";
+            // toolStripStatusLabelWindows
+            this.toolStripStatusLabelWindows.Name = "toolStripStatusLabelWindows";
+            this.toolStripStatusLabelWindows.Size = new System.Drawing.Size(114, 20);
+            this.toolStripStatusLabelWindows.Text = "Windows Status: ";
 
             //
             // MainForm
