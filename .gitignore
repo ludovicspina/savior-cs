@@ -21,6 +21,8 @@
 # Répertoires .vs (Visual Studio)
 .vs/
 
+/publish
+
 # Fichiers NuGet
 *.nupkg
 *.snupkg
